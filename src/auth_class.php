@@ -47,18 +47,6 @@ trait Cookie_Login_Trait{
     }
 }
 
-
-/* Database PDO connection. */
-// try
-// {
-//     $db = new PDO('mysql:host=localhost;dbname=movies', 'root', 'root');
-//     $db->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
-// }
-// catch (PDOException $e)
-// {
-//     echo $e->getMessage();
-// }
-
 try{
   $db = DataBase::getDataBase();
 }catch(PDOException $e){

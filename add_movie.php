@@ -69,24 +69,27 @@
                 </form>
                 </div>
             </div>
-            <?php
-                if(isset($_POST['title'])){
-            
-                //add a movie form
-                $title=$_POST['title'];
-                $content=$_POST['content'];
-                $mainActor=$_POST['mainActor'];
-                $director=$_POST['director'];
-                $tag=$_POST['tag'];
-                $year=$_POST['year'];
-                //$poster=$_POST['poster'];
-            
-                MoviesManager::add($title,$content,$mainActor,$director,$tag, $year);
-                }
-            ?>
         </section>
         
 
     </body>
 </html>
+
+<?php
+    if(isset($_POST['title'])){
+        $title=$_POST['title'];
+        $content=$_POST['content'];
+        $mainActor=$_POST['mainActor'];
+        $director=$_POST['director'];
+        $tag=$_POST['tag'];
+        $year=$_POST['year'];
+        
+        $poster = PosterManager::add($title);
+        var_dump($poster);
+
+        if(isset($poster)){
+            MoviesManager::add($title,$content,$mainActor,$director,$tag, $year, $poster);
+        }
+    }
+?>
 

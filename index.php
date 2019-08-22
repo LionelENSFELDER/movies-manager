@@ -44,7 +44,7 @@
                         <div class="col-4 mb-4">
                             <div class="card-deck">
                                 <div class="card bg-transparent border-0 text-left text-white hover-scale">
-                                    <img src="<?php echo $i['image'];?>" title="" alt="..." class="card-img">
+                                    <img src="<?php echo $i['poster'];?>" title="" alt="..." class="card-img">
                                     <div class="card-img-overlay rounded">
 
                                     </div>

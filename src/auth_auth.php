@@ -14,4 +14,5 @@ $accountName = $user->getAccountName();
 
 $accountPic = $user->getAccountPic($accountId, $db);
 
+$passwordCheck = FALSE;
 ?>

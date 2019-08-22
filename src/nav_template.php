@@ -29,7 +29,6 @@
                 <div class="collapse navbar-collapse" id="navbarTogglerDemo03">
                     <ul class="navbar-nav mr-auto mt-2 mt-lg-0">
                     <?php
-                    //var_dump($auth);
                         if($auth === FALSE){
                             ?>
                             <a class="nav-item nav-link" href="signup.php">Signup</a>

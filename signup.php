@@ -6,6 +6,7 @@
     require_once('src/load.php');
     require_once('src/nav_template.php');
 
+    var_dump($passwordCheck);
 ?>
 
 <!DOCTYPE html>
@@ -25,13 +26,26 @@
                 <form action="signup.php" method="POST">
                     <h1>Create an account</h1>
                         <div class="form-group">
-                            <label for="exampleInputEmail1">Email</label>
+                            <label for="exampleInputEmail1">Username</label>
                             <input type="text" name="name" class="form-control" placeholder="Name" required>
                         </div>
                         <div class="form-group">
                             <label for="exampleInputPassword1">Password</label>
                             <input type="password" name="password" class="form-control" placeholder="Password" required>
                         </div>
+                        <!-- !!!!!!!!!!!!!!!!!!!!!!!!!!!!! -->
+                        <!-- !!!!!!!!!!!!!!!!!!!!!!!!!!!!! -->
+                        <div class="form-group">
+                            <?php
+                                if($passwordCheck === TRUE){
+                                    echo 'Passwords must be the same !';
+                                }
+                            ?>
+                            <label for="exampleInputPassword1">Repeat password</label>
+                            <input type="password" name="password2" class="form-control" placeholder="Password" required>
+                        </div>
+                        <!-- !!!!!!!!!!!!!!!!!!!!!!!!!!!!! -->
+                        <!-- !!!!!!!!!!!!!!!!!!!!!!!!!!!!! -->
                     <button class="btn btn-primary" type="submit" value="">Send</button>
                 </form>
             </div>
@@ -43,14 +57,21 @@
 <?php
 
 if (isset($_POST['name']) AND isset($_POST['password'])){
-    $form_name = $_POST['name'];
-    $form_password = $_POST['password'];
-    $res = $user->add_account($form_name, $form_password, $db);
-    if($res === TRUE){
-        header('location:login.php');
-    }else if($res === FALSE){
-        var_dump($res);
-        echo 'Fuck !'.$form_name.' !';
+
+    if($_POST['password'] === $_POST['password2']){
+
+        $username = $_POST['name'];
+        $password = $_POST['password'];
+        $res = $user->add_account($username, $password, $db);
+        if($res === TRUE){
+            header('location:login.php');
+        }else if($res === FALSE){
+            var_dump($res);
+            echo 'Fail !';
+        }
+    }else{
+        // $passwordCheck = TRUE;
+        // var_dump($passwordCheck);
     }
 }
 
