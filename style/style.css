@@ -1,0 +1,11 @@
+.background-dark{
+    background-color: #131313;
+}
+.fixed-row{
+    height: 300px;
+}
+/*  */
+.hover-scale:hover{
+    transform: scale(1.1);
+    border: 3px solid #fffff;
+}
