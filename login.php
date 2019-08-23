@@ -13,7 +13,7 @@
     <head>
         <meta charset="utf-8">
         <meta name="viewport" content="width=device-width,initial-scale=1.0">
-        <title>Signin</title>
+        <title>Login</title>
         <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
         <meta name="viewport" content="width=device-width, initial-scale=1">
         <link rel="stylesheet" href="style/style.css">
@@ -47,15 +47,17 @@
 <?php
 
 if (isset($_POST['name']) AND isset($_POST['password'])){
-    $form_name = $_POST['name'];
-    $form_password = $_POST['password'];
-    $res = $user->login($form_name, $form_password);
-    //var_dump($res);
+
+    $username = $_POST['name'];
+    $password = $_POST['password'];
+    $res = $user->login($username, $password);
+    var_dump($res);
     if($res === TRUE){
-        echo 'Bonjour '.$form_name.' !';
-        header('location:index.php');
+        echo 'Bonjour '.$username.' !';
+        header( 'location:index.php' );
     }else if($res === FALSE){
-        echo 'Err: '.$form_name.' !';
+        echo 'Err: '.$username.' !';
     }
 }
+
 ?>

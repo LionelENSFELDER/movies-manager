@@ -8,11 +8,4 @@
     require_once('movie_view.php');
     require_once('auth_auth.php');
     require_once('auth_class.php');
-    require_once('poster_manager.php');
-
-    // try{
-    //     $db = DataBase::getDataBase();
-    // }catch(PDOException $e){
-    //     echo 'Fail : ' . $e->getMessage();
-    // }
 ?>

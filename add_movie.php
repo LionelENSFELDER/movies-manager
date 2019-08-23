@@ -22,17 +22,14 @@
         <link rel="stylesheet" href="style/style.css">
     </head>
     <body class="background-dark">
-
-        
-
         <section class="vh-100 row h-100">
             <div class="col-12">
                 <div class="card mb-3 mx-auto p-5 rounded shadow" style="width: 45rem;">
                 <h1>Add a movie</h1>
-                <form method="POST" action="add_movie.php">
+                <form method="POST" action="add_movie.php" enctype="multipart/form-data">
                     <div class="form-group">
                         <label for="title">Title</label>
-                        <input type="text" class="form-control" id="title" name="title" placeholder="Title">
+                        <input type="text" class="form-control" id="title" name="title" placeholder="Title" required>
                     </div>
                     <div class="form-group">
                         <label for="year">Year</label>
@@ -51,17 +48,17 @@
                         <textarea type="text" class="form-control" id="content" name="content" placeholder="Enter synopsis"></textarea>
                     </div>
                     <div class="form-group">
-                        <label for="tag">Tag (only one)</label>
-                        <select id="tag" name="tag" class="form-control">
-                            <option selected>Choose...</option>
+                        <label for="tag">Tag <span class="text-danger">(only one for now)</span></label>
+                        <select id="tag" name="tag" class="form-control" required>
+                            <option>UNTAGGED</option>
                             <option>SCI-FI</option>
                             <option>DRAMA</option>
                             <option>COMEDY</option>
                         </select>
                     </div>
                     <div class="form-group">
-                        <label for="poster">Poster</label>
-                        <input type="file" class="form-control-file" id="poster" name="poster">
+                        <label for="poster">Poster <span class="text-danger">(.jpg only)<span></label>
+                        <input type="file" class="form-control-file" id="poster" name="poster" accept=".jpg">
                     </div>
                     <div class="form-group">
                         <button type="submit" class="btn btn-primary">Add</button>
@@ -70,13 +67,12 @@
                 </div>
             </div>
         </section>
-        
-
     </body>
 </html>
 
 <?php
     if(isset($_POST['title'])){
+
         $title=$_POST['title'];
         $content=$_POST['content'];
         $mainActor=$_POST['mainActor'];
@@ -84,8 +80,7 @@
         $tag=$_POST['tag'];
         $year=$_POST['year'];
         
-        $poster = PosterManager::add($title);
-        var_dump($poster);
+        $poster = MoviesManager::addPoster($title);
 
         if(isset($poster)){
             MoviesManager::add($title,$content,$mainActor,$director,$tag, $year, $poster);

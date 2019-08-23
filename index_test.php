@@ -4,7 +4,7 @@
     error_reporting( E_ALL );
 
     require_once('src/load.php');
-    //require_once('src/nav_template.php');
+    require_once('src/nav_template.php');
 
     try{
         $db = DataBase::getDataBase(); //PDO instance
@@ -21,47 +21,41 @@
     <head>
         <meta charset="utf-8">
         <meta name="viewport" content="width=device-width,initial-scale=1.0">
-        <title>Test__</title>
+        <title>Movies Manager</title>
         <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
         <link rel="stylesheet" href="style/style.css">
     </head>
     <body class="background-dark">
-
-        <!-- <section class="">
+        
+        <section class="vw-100">
             <div class="container">
                 <div class="row">
-                <?php
-                    while($i=$response->fetch()){
-                        
-                        $card=Movie::CreateNew($i);
-                        ?>
-                        <div class="col-4 mb-4">
-                            <div class="card-deck">
-                                <div class="card bg-transparent border-0 text-left text-white">
-                                    <img src="<?php echo $i['image'];?>" alt="..." class="card-img">
-                                    <div class="card-img-overlay rounded">
-
-                                    </div>
-                                    <div class="card-footer px-0 bg-transparent">
-                                        <h5 class="card-title"><?php echo $i['title'];?></h5>
-                                        <button type="button" class="btn btn-outline-light btn-sm">Tag</button>
-                                    </div>
-                                    <a href="#" class="stretched-link"></a>
-                                </div>
-                            </div>
-                        </div>
+                    <div class="card-colums">
                         <?php
-                    }?> 
+                            while($i=$response->fetch()){
+                            $card=Movie::CreateNew($i);
+                            ?>
+                            <div class="card">
+                                    <img src="<?php echo $i['poster'];?>" class="card-img-top" alt="...">
+                                    <div class="card-body">
+                                    <h5 class="card-title"><?php echo $i['title'];?></h5>
+                                    </div>
+                                    <div class="card-footer">
+                                        <h5 class="card-title"><?php echo $i['title'];?></h5>
+                                        <div class="row">
+                                            <div class="col-6">
+                                                <button type="button" class="btn btn-outline-light btn-sm"><?php echo $i['year'];?></button>
+                                                <button type="button" class="btn btn-outline-light btn-sm"><?php echo $i['tag'];?></button>
+                                            </div>
+                                        </div>
+                                    </div>
+                            </div>
+                            <?php
+                        }?>
+                    </div>
                 </div>
             </div>
-        </section> -->
-        
-
-
-        <!--scripts-->
-        <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
-        <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
-        <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
+        </section>
 
     </body>
 </html>

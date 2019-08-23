@@ -206,7 +206,7 @@ class User
     }
     
     /* Deletes an account */
-    public static function delete_account($account_id, &$db)
+    public static function delete_account($account_id, $db)
     {
         /* Note: you should only allow "admin" users to run this function 
           and carefully check the $account_id value */

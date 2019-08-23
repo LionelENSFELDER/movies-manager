@@ -5,8 +5,6 @@
 
     require_once('src/load.php');
     require_once('src/nav_template.php');
-
-    var_dump($passwordCheck);
 ?>
 
 <!DOCTYPE html>
@@ -33,19 +31,6 @@
                             <label for="exampleInputPassword1">Password</label>
                             <input type="password" name="password" class="form-control" placeholder="Password" required>
                         </div>
-                        <!-- !!!!!!!!!!!!!!!!!!!!!!!!!!!!! -->
-                        <!-- !!!!!!!!!!!!!!!!!!!!!!!!!!!!! -->
-                        <div class="form-group">
-                            <?php
-                                if($passwordCheck === TRUE){
-                                    echo 'Passwords must be the same !';
-                                }
-                            ?>
-                            <label for="exampleInputPassword1">Repeat password</label>
-                            <input type="password" name="password2" class="form-control" placeholder="Password" required>
-                        </div>
-                        <!-- !!!!!!!!!!!!!!!!!!!!!!!!!!!!! -->
-                        <!-- !!!!!!!!!!!!!!!!!!!!!!!!!!!!! -->
                     <button class="btn btn-primary" type="submit" value="">Send</button>
                 </form>
             </div>
@@ -58,21 +43,14 @@
 
 if (isset($_POST['name']) AND isset($_POST['password'])){
 
-    if($_POST['password'] === $_POST['password2']){
-
         $username = $_POST['name'];
         $password = $_POST['password'];
         $res = $user->add_account($username, $password, $db);
         if($res === TRUE){
-            header('location:login.php');
+            header( 'location:login.php' );
         }else if($res === FALSE){
-            var_dump($res);
             echo 'Fail !';
         }
-    }else{
-        // $passwordCheck = TRUE;
-        // var_dump($passwordCheck);
-    }
 }
 
 ?>

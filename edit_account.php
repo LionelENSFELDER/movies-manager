@@ -55,11 +55,13 @@
             $password = $_POST['password'];
             $accountId = $user->getAccountId();
             $user->edit_account($accountId, $db, $username, $password);
+            header('location:profile.php');
         }else{
             $username = $_POST['name'];
             $password = $_POST['password'];
             $accountId = $user->getAccountId();
             $user->edit_account($accountId, $db, $username, $password);
+            header('location:profile.php');
         }
 
 
