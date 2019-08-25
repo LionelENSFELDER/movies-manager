@@ -42,15 +42,13 @@
 <?php
 
 if (isset($_POST['name']) AND isset($_POST['password'])){
-
-        $username = $_POST['name'];
-        $password = $_POST['password'];
-        $res = $user->add_account($username, $password, $db);
-        if($res === TRUE){
-            header( 'location:login.php' );
-        }else if($res === FALSE){
-            echo 'Fail !';
-        }
+    $username = $_POST['name'];
+    $password = $_POST['password'];
+    $res = $user->add_account($username, $password, $db);
+    if($res === TRUE){
+        header('location:login.php');
+    }else if($res === FALSE){
+        echo 'Fail !';
+    }
 }
-
 ?>

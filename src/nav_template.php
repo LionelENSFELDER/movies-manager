@@ -38,19 +38,13 @@
                             <?php
                         }else{
                             ?>
-                            <li class="nav-item">
-                                <a type="button" class="nav-link" href="add_movie.php"><i class="fas fa-plus-square mr-1"></i>Add a movie</a>
-                            </li>
+                            <a class="nav-item nav-link" href="add_movie.php"><i class="fas fa-plus-square mr-1"></i>Add a movie</a>
                             <a class="nav-item nav-link" href="profile.php">Profile</a>
                             <a class="nav-item nav-link" href="logout.php">Logout</a>
                             <?php
                         }
                         ?>
                     </ul>
-                    <form class="form-inline my-2 my-lg-0">
-                    <input class="form-control mr-sm-2" type="search" placeholder="Search" aria-label="Search">
-                    <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button>
-                    </form>
                 </div>
                 </nav>
             </div>

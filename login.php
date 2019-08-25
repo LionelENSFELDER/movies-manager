@@ -7,6 +7,20 @@
     require_once('src/nav_template.php');
 ?>
 
+<?php
+    if (isset($_POST['name']) AND isset($_POST['password'])){
+        $name = $_POST['name'];
+        $password = $_POST['password'];
+        $res = $user->login($name, $password);
+        var_dump($res);
+        if($res === TRUE){
+            echo 'Bonjour '.$name.' !';
+            header("Location: index.php");
+        }else{
+            echo 'Err: '.$name.' !';
+        }
+    }
+?>
 
 <!DOCTYPE html>
 <html lang="fr">
@@ -42,22 +56,3 @@
     </section>
     </body>
 </html>
-
-
-<?php
-
-if (isset($_POST['name']) AND isset($_POST['password'])){
-
-    $username = $_POST['name'];
-    $password = $_POST['password'];
-    $res = $user->login($username, $password);
-    var_dump($res);
-    if($res === TRUE){
-        echo 'Bonjour '.$username.' !';
-        header( 'location:index.php' );
-    }else if($res === FALSE){
-        echo 'Err: '.$username.' !';
-    }
-}
-
-?>

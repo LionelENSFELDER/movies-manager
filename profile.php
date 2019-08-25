@@ -7,9 +7,8 @@
     require_once('src/nav_template.php');
 
     if($auth === false){
-        header( 'location:login.php' );
+        header('location:login.php');
     }
-
 ?>
 
 
@@ -65,9 +64,6 @@
                 </div>
             </div>
         </section>
-
-
-
     </body>
 </html>
 

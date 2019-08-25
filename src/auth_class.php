@@ -178,9 +178,9 @@ class User
           $res = $st->fetch(PDO::FETCH_ASSOC);
             
           /* If the username exists and is enabled, then we check the password */
-          // if (!$res){
-          //     return FALSE;
-          // }
+          if (!$res){
+              return FALSE;
+          }
           if (password_verify($password, $res['account_password']))
           {
              /* Log in ok, we retrieve the account data */
@@ -401,3 +401,4 @@ class User
     }
 
 }
+?>

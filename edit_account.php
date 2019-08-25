@@ -46,10 +46,8 @@
         </section>
     </body>
 </html>
-
 <?php
     if(isset($_POST['submit'])){
-        
         if($_POST['name']===null){
             $username=$accountName;
             $password = $_POST['password'];
@@ -63,8 +61,6 @@
             $user->edit_account($accountId, $db, $username, $password);
             header('location:profile.php');
         }
-
-
     }else{
         echo 'FAIL';
     }
