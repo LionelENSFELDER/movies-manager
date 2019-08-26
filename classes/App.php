@@ -1,5 +1,8 @@
 <?php
 
+
+
+
 //globale app class used everywhere
 class App {
     //globale var
@@ -9,7 +12,7 @@ class App {
     protected $accountName;
 
     public function __construct() {
-        //init when
+        //init
         $this->init();
     }
 
@@ -21,7 +24,9 @@ class App {
         return $this->db;
     }
 
-    
+    public function getAuth(){
+        return $this->auth;
+    }    
     //
     public function getProfilePic(){
         $accountId = $this->user->getAccountId();
@@ -42,7 +47,7 @@ class App {
         
         $this->auth = $this->user->getAuth();
 
-        $this->accountName = $this->user->getAccountName();
+        // $this->accountName = $this->user->getAccountName();
 
         $this->user->cookie_login();
 

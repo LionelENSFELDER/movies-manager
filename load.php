@@ -12,7 +12,13 @@
         include 'classes/' . $class . '.php';
     });
 
+    $app = App::Get();
+    $db = $app->getDb();
+    $auth = $app->getAuth();
+    
+    require_once('./templates/navbar.php');
 
+    
 
     // 1ere version
     // try{
@@ -33,10 +39,7 @@
     // $accountName = $user->getAccountName();
 
     // $accountPic = $user->getAccountPic($accountId, $db);
-    $app = App::Get();
 
-    require_once('./templates/navbar.php');
-    
 
     // 2eme version
     // $app = [
@@ -49,7 +52,7 @@
     
 
     // 3eme version
-    $app = App::Get();
+    //$app = App::Get();
 
     // 4eme version
     // $app = App::Get(DataBase::class);
