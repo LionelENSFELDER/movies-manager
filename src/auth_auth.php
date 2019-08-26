@@ -1,6 +1,6 @@
 <?php
 
-require_once('auth_class.php');
+require_once('load.php');
 
 $user = new User($db);
 

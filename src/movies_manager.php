@@ -12,13 +12,15 @@
             $new_ext = 'jpg'; //shit !
 
             $ext = pathinfo($tmp_name, PATHINFO_EXTENSION);
-            echo $ext;
 
-            chmod($upload_dir, 0777); //??? !
+            //chmod($upload_dir, 0777); //shit!
 
             move_uploaded_file($tmp_name, "$upload_dir"."$title".'.'.$new_ext);
 
             $poster = "$upload_dir"."$title".'.'.$new_ext;
+
+            // Replace spaces by _ in path
+            //$poster = str_replace(" ", "_", $poster);
 
             return $poster;
         }

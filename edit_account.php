@@ -3,8 +3,8 @@
     ini_set('display_startup_errors', 1);
     error_reporting( E_ALL );
 
-    require_once('src/load.php');
-    require_once('src/nav_template.php');
+    require_once('load.php');
+    //require_once('src/nav_template.php');
 
     if($auth === false){
         header( 'location:login.php' );
@@ -38,7 +38,8 @@
                         <input type="text" name="password" class="form-control" placeholder="*******" required>
 
                         <div class="mt-3">
-                            <button type="submit" name="submit" class="btn btn-outline-info">Send</button>
+                            <a type="submit" name="cancel" class="btn btn-outline-warning" href="profile.php">Cancel</a>
+                            <a type="submit" name="submit" class="btn btn-outline-info">Send</a>
                         </div>
                     </form>
                 </div>
@@ -62,6 +63,6 @@
             header('location:profile.php');
         }
     }else{
-        echo 'FAIL';
+        echo 'Nothing posted';
     }
 ?>

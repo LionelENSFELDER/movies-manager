@@ -1,6 +1,6 @@
 <?php
 
-require_once('movies_manager_PDO.php');
+//require_once('movies_manager_PDO.php');
 
 /* TRAITS */
 

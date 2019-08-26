@@ -3,14 +3,32 @@
     ini_set('display_startup_errors', 1);
     error_reporting( E_ALL );
 
-    require_once('src/load.php');
-    require_once('src/nav_template.php');
+    require_once('load.php');
     
     if($auth === false){
         header('location:login.php');
     }
 ?>
 
+<?php
+    if(isset($_POST['title'])){
+
+        $title=$_POST['title'];
+        $content=$_POST['content'];
+        $mainActor=$_POST['mainActor'];
+        $director=$_POST['director'];
+        $tag=$_POST['tag'];
+        $year=$_POST['year'];
+        $poster=$_POST['poster'];
+        
+        $poster = MoviesManager::addPoster($title);
+
+        if(isset($poster)){
+            MoviesManager::addMovie($title,$content,$mainActor,$director,$tag, $year, $poster);
+            header('location:index.php');
+        }
+    }
+?>
 
 <!DOCTYPE html>
 <html lang="fr">
@@ -69,22 +87,3 @@
         </section>
     </body>
 </html>
-
-<?php
-    if(isset($_POST['title'])){
-
-        $title=$_POST['title'];
-        $content=$_POST['content'];
-        $mainActor=$_POST['mainActor'];
-        $director=$_POST['director'];
-        $tag=$_POST['tag'];
-        $year=$_POST['year'];
-        
-        $poster = MoviesManager::addPoster($title);
-
-        if(isset($poster)){
-            MoviesManager::add($title,$content,$mainActor,$director,$tag, $year, $poster);
-        }
-    }
-?>
-

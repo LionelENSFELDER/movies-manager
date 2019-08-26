@@ -1,13 +1,12 @@
 <?php
-    ini_set('display_errors', 1);
-    ini_set('display_startup_errors', 1);
-    error_reporting( E_ALL );
+    // ini_set('display_errors', 1);
+    // ini_set('display_startup_errors', 1);
+    // error_reporting( E_ALL );
 
-    require_once('src/load.php');
-    require_once('src/nav_template.php');
+    require_once('load.php');
 
     try{
-        $db = DataBase::getDataBase(); //PDO instance
+        //$db = DataBase::getDataBase(); //PDO instance
         $allmovies = 'SELECT * FROM `movies`';
         $response = $db->query($allmovies);
     }catch(PDOException $e){
@@ -25,12 +24,12 @@
         <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
         <link rel="stylesheet" href="style/style.css">
     </head>
-    <body class="background-dark">
-        
 
+    <body class="background-dark">
         <section class="">
             <div class="container">
                 <div class="row">
+                <!-- Movie card -->
                 <?php
                     while($i=$response->fetch()){
                         
@@ -39,7 +38,7 @@
                         <div class="col-lg-4 col-md-12 col-sm-12 mb-4">
                             <div class="card-deck p-4">
                                 <div class="card bg-transparent border-0 text-left text-white hover-scale">
-                                    <img src="<?php echo $i['poster'];?>" title="" alt="..." class="card-img">
+                                    <img class="card-img" src="<?php echo $i['poster'];?>" title="<?php echo $i['title'];?>" alt="<?php echo $i['title'].'_poster';?>">
                                     <div class="card-img-overlay rounded">
 
                                     </div>
@@ -52,7 +51,7 @@
                                             </div>
                                         </div>
                                     </div>
-                                    <!-- card link to modal -->
+                                    <!-- Card link to modal -->
                                     <a href="#" class="stretched-link" data-toggle="modal" data-target="#card<?php echo $i['id'];?>"></a>  
                                 </div>
                             </div>
@@ -68,6 +67,10 @@
                                             </button>
                                         </div>
                                         <div class="modal-body">
+                                        <p>
+                                            <span class="">Year: <?php echo $i['year'].' ,';?></span>
+                                            <span class="">tag: <?php echo $i['tag'];?></span>
+                                        </p>
                                         <p>
                                             <span class="">Main actor: <?php echo $i['mainActor'];?></span>
                                         </p>
