@@ -4,7 +4,6 @@
     error_reporting( E_ALL );
 
     require_once('load.php');
-    //require_once('src/nav_template.php');
 
     if($auth === false){
         header('location:login.php');

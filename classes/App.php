@@ -25,9 +25,21 @@ class App {
     }
 
     public function getAuth(){
+        $this->auth = $this->user->getAuth();
         return $this->auth;
-    }    
+    }
+
+    public function getAccountName(){
+        $this->accountName = $this->user->getAccountName();
+        return $this->accountName;
+    }
+
     //
+    // public function setAuth(){
+    //     $this->auth = $this->user->getAuth();
+    //     return $this->auth;
+    // }
+
     public function getProfilePic(){
         $accountId = $this->user->getAccountId();
 
@@ -44,12 +56,7 @@ class App {
         }
 
         $this->user = new User($this->db);
-        
         $this->auth = $this->user->getAuth();
-
-        // $this->accountName = $this->user->getAccountName();
-
-        $this->user->cookie_login();
 
     }
 

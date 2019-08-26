@@ -3,21 +3,19 @@
     ini_set('display_startup_errors', 1);
     error_reporting( E_ALL );
 
-    require_once('src/load.php');
-    require_once('src/nav_template.php');
+    require_once('load.php');
+    var_dump($auth);
 ?>
 
 <?php
     if (isset($_POST['name']) AND isset($_POST['password'])){
         $name = $_POST['name'];
         $password = $_POST['password'];
-        $res = $user->login($name, $password);
-        var_dump($res);
-        if($res === TRUE){
-            echo 'Bonjour '.$name.' !';
+        $auth = $user->login($name, $password);
+        if($auth === TRUE){
             header("Location: index.php");
         }else{
-            echo 'Err: '.$name.' !';
+            echo 'Login Err' ;
         }
     }
 ?>

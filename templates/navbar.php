@@ -37,7 +37,7 @@
                                 <?php
                             }else{
                                 ?>
-                                <a class="nav-item nav-link" href="add_movie.php"><i class="fas fa-plus-square mr-1"></i>Add a movie</a>
+                                <a class="nav-item nav-link" href="add.php"><i class="fas fa-plus-square mr-1"></i>Add a movie</a>
                                 <a class="nav-item nav-link" href="profile.php">Profile</a>
                                 <a class="nav-item nav-link" href="logout.php">Logout</a>
                                 <?php

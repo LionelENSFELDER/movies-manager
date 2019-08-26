@@ -10,25 +10,7 @@
     }
 ?>
 
-<?php
-    if(isset($_POST['title'])){
 
-        $title=$_POST['title'];
-        $content=$_POST['content'];
-        $mainActor=$_POST['mainActor'];
-        $director=$_POST['director'];
-        $tag=$_POST['tag'];
-        $year=$_POST['year'];
-        $poster=$_POST['poster'];
-        
-        $poster = MoviesManager::addPoster($title);
-
-        if(isset($poster)){
-            MoviesManager::addMovie($title,$content,$mainActor,$director,$tag, $year, $poster);
-            header('location:index.php');
-        }
-    }
-?>
 
 <!DOCTYPE html>
 <html lang="fr">
@@ -44,7 +26,7 @@
             <div class="col-12">
                 <div class="card mb-3 mx-auto p-5 rounded shadow" style="width: 45rem;">
                 <h1>Add a movie</h1>
-                <form method="POST" action="add_movie.php" enctype="multipart/form-data">
+                <form method="POST" action="add.php" enctype="multipart/form-data">
                     <div class="form-group">
                         <label for="title">Title</label>
                         <input type="text" class="form-control" id="title" name="title" placeholder="Title" required>
@@ -87,3 +69,25 @@
         </section>
     </body>
 </html>
+<?php
+    if(isset($_POST['title'])){
+
+        $title=$_POST['title'];
+        $content=$_POST['content'];
+        $mainActor=$_POST['mainActor'];
+        $director=$_POST['director'];
+        $tag=$_POST['tag'];
+        $year=$_POST['year'];
+        $uploadFile = $_POST['poster'];
+        
+        // $poster = MoviesManager::addPoster($title);
+
+        // if(isset($poster)){
+        //     MoviesManager::addMovie($title,$content,$mainActor,$director,$tag,$year,$poster);
+        //     header('location:index.php');
+        // }
+
+        MoviesManager::add($title,$content,$mainActor,$director,$tag,$year);
+        header('location:index.php');
+    }
+?>
