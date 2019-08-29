@@ -4,13 +4,37 @@
     error_reporting( E_ALL );
 
     require_once('load.php');
-    
     if($auth === false){
-        header('location:login.php');
+        header('location:index.php');
     }
 ?>
 
+<?php
+    if(isset($_POST['title'])){
 
+        $title=filter_var($_POST['title'], FILTER_SANITIZE_STRING);
+        $content=filter_var($_POST['content'], FILTER_SANITIZE_STRING);
+        $mainActor=filter_var($_POST['mainActor'], FILTER_SANITIZE_STRING);
+        $director=filter_var($_POST['director'], FILTER_SANITIZE_STRING);
+        $tag=filter_var($_POST['tag'], FILTER_SANITIZE_STRING);
+        $year=filter_var($_POST['year'], FILTER_SANITIZE_NUMBER_INT);
+        if(isset($_POST['poster'])){
+            $uploadFile = $_POST['poster'];
+        }else{
+            $uploadFile = NULL;
+        }
+        
+        // $poster = MoviesManager::addPoster($title);
+
+        // if(isset($poster)){
+        //     MoviesManager::addMovie($title,$content,$mainActor,$director,$tag,$year,$poster);
+        //     header('location:index.php');
+        // }
+
+        MoviesManager::add($title,$content,$mainActor,$director,$tag,$year,$uploadFile);
+        header('location:add.php');
+    }
+?>
 
 <!DOCTYPE html>
 <html lang="fr">
@@ -69,25 +93,3 @@
         </section>
     </body>
 </html>
-<?php
-    if(isset($_POST['title'])){
-
-        $title=$_POST['title'];
-        $content=$_POST['content'];
-        $mainActor=$_POST['mainActor'];
-        $director=$_POST['director'];
-        $tag=$_POST['tag'];
-        $year=$_POST['year'];
-        $uploadFile = $_POST['poster'];
-        
-        // $poster = MoviesManager::addPoster($title);
-
-        // if(isset($poster)){
-        //     MoviesManager::addMovie($title,$content,$mainActor,$director,$tag,$year,$poster);
-        //     header('location:index.php');
-        // }
-
-        MoviesManager::add($title,$content,$mainActor,$director,$tag,$year);
-        header('location:index.php');
-    }
-?>

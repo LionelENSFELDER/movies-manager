@@ -17,9 +17,7 @@
     $user = $app->getUser();
     $user->cookie_login();
     $auth = $app->getAuth();
-    $accountName = $user->getAccountName();
-    $accountId = $user->getAccountId();
-    $accountPic = $user->getAccountPic($accountId, $db);
+
 
 
     require_once('./templates/navbar.php');

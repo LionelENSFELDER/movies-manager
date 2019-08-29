@@ -4,6 +4,8 @@
     error_reporting( E_ALL );
 
     require_once('load.php');
+    $accountName = $app->getAccountName();
+    $accountPic = $app->getProfilePic();
 
     if($auth === false){
         header('location:login.php');

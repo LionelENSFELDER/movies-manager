@@ -1,8 +1,5 @@
 <?php
 
-
-
-
 //globale app class used everywhere
 class App {
     //globale var
@@ -34,16 +31,10 @@ class App {
         return $this->accountName;
     }
 
-    //
-    // public function setAuth(){
-    //     $this->auth = $this->user->getAuth();
-    //     return $this->auth;
-    // }
-
     public function getProfilePic(){
         $accountId = $this->user->getAccountId();
 
-        $accountPic = $this->user->getAccountPic();
+        $accountPic = $this->user->getAccountPic($accountId, $this->db);
 
         return $accountPic;
     }
