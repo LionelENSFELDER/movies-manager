@@ -4,7 +4,23 @@
     error_reporting( E_ALL );
 
     require_once('src/load.php');
-    require_once('src/nav_template.php');
+?>
+
+<?php
+
+if (isset($_POST['name']) AND isset($_POST['password'])){
+
+    $username = filter_var($_POST['name'], FILTER_SANITIZE_STRING);
+    $password = filter_var($_POST['password'], FILTER_SANITIZE_STRING);
+
+    $res = $user->add_account($username, $password, $db);
+    
+    if($res === TRUE){
+        header('location:login.php');
+    }else if($res === FALSE){
+        echo 'Fail !';
+    }
+}
 ?>
 
 <!DOCTYPE html>
@@ -38,17 +54,3 @@
     </section>
     </body>
 </html>
-
-<?php
-
-if (isset($_POST['name']) AND isset($_POST['password'])){
-    $username = $_POST['name'];
-    $password = $_POST['password'];
-    $res = $user->add_account($username, $password, $db);
-    if($res === TRUE){
-        header('location:login.php');
-    }else if($res === FALSE){
-        echo 'Fail !';
-    }
-}
-?>

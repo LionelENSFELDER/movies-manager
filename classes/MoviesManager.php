@@ -57,7 +57,7 @@
 
                 $tmp_name = $_FILES['uploadFile']['tmp_name'];
 
-                var_dump(mime_content_type($tmp_name));
+                //var_dump(mime_content_type($tmp_name));
 
                 $new_ext = 'jpg'; //shit !
 

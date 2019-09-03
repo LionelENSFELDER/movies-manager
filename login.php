@@ -9,13 +9,17 @@
 
 <?php
     if (isset($_POST['name']) AND isset($_POST['password'])){
-        $name = $_POST['name'];
-        $password = $_POST['password'];
+
+        $name = filter_var($_POST['name'], FILTER_SANITIZE_STRING);
+        $password = filter_var($_POST['password'], FILTER_SANITIZE_STRING);
+
         $auth = $user->login($name, $password);
+
         if($auth === TRUE){
             header("Location: index.php");
         }else{
             echo 'Login Err' ;
+            header("Location: login.php");
         }
     }
 ?>
@@ -37,7 +41,7 @@
                 <form action="login.php" method="POST">
                     <h1>Login</h1>
                         <div class="form-group">
-                            <label for="exampleInputEmail1">Email</label>
+                            <label for="exampleInputEmail1">Name</label>
                             <input type="text" name="name" class="form-control" placeholder="Name">
                         </div>
                         <div class="form-group">
