@@ -27,6 +27,10 @@
     </head>
 
     <body class="background-dark">
+        <?php 
+            $template = $twig->load('navbar.twig');
+            echo $template->render(['auth' => $auth]);
+        ?>
         <section class="">
             <div class="container">
                 <div class="row">

@@ -1,7 +1,9 @@
 <?php
-    // ini_set('display_errors', 1);
-    // ini_set('display_startup_errors', 1);
-    // error_reporting( E_ALL );
+    require_once 'vendor/autoload.php';
+
+    ini_set('display_errors', 1);
+    ini_set('display_startup_errors', 1);
+    error_reporting( E_ALL );
 
     // require_once('movies_manager.php');
     // require_once('auth_class.php');
@@ -17,10 +19,10 @@
     $user = $app->getUser();
     $user->cookie_login();
     $auth = $app->getAuth();
+    $twig = $app->getTwig();
+    
 
-
-
-    require_once('./templates/navbar.php');
+    // require_once('./templates/navbar.php');
 
     
 

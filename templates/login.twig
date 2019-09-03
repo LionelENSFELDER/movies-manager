@@ -1,0 +1,29 @@
+
+{% extends "default.twig" %}
+
+
+{% block body %}
+
+    <section class="vh-100 row h-100">
+        <div class="col-sm-12 my-5">
+            <div class="card mb-3 mx-auto p-5 rounded shadow" style="width: 45rem;">
+                <form action="login.php" method="POST">
+                    <h1>Login</h1>
+                        <div class="form-group">
+                            <label for="exampleInputEmail1">Name</label>
+                            <input type="text" name="name" class="form-control" placeholder="Name">
+                        </div>
+                        <div class="form-group">
+                            <label for="exampleInputPassword1">Password</label>
+                            <input type="password" name="password" class="form-control" placeholder="Password">
+                        </div>
+                        <div class="form-group">
+                            <a type="button" class="btn btn-link p-0" href="signup.php">Don't have an account ?</a>
+                        </div>
+                    <button class="btn btn-primary" type="submit" value="">Envoyer !</button>
+                </form>
+            </div>
+        </div>
+    </section>
+
+{% endblock %}

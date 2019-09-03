@@ -7,10 +7,15 @@ class App {
     protected $user;
     protected $auth;
     protected $accountName;
+    protected $twig;
 
     public function __construct() {
         //init
         $this->init();
+    }
+
+    public function getTwig(){
+        return $this->twig;
     }
 
     public function getUser(){
@@ -49,6 +54,12 @@ class App {
         $this->user = new User($this->db);
         $this->auth = $this->user->getAuth();
 
+
+        $loader = new \Twig\Loader\FilesystemLoader('./templates');
+        $this->twig = new \Twig\Environment($loader, [
+            'cache' => false //disable cache
+            // 'cache' => './cache/twig', //enable cache
+        ]);
     }
 
 
