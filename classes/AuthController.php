@@ -3,7 +3,6 @@
 
 class AuthController extends BaseController {
 
-
     public function login(){
         if (isset($_POST['name']) AND isset($_POST['password'])){
 

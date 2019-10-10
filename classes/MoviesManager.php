@@ -1,14 +1,31 @@
 <?php
     require('load.php');
 
-    class MoviesManager{
-        protected static $app;
-        protected static $db;
+    class MoviesManager extends BaseController {
+        protected $app;
+        protected $db;
+        protected $moviesList;
 
         public function __construct(){
             $this->app = App::Get();
             $this->db = $this->app->getDb();
+            $this->allMovies();
         }
+
+        public function allMovies(){
+            try{
+                $req = 'SELECT * FROM `movies`';
+                $this->moviesList = $this->db->query($req);
+            }catch(PDOException $e){
+                echo 'BDD plugin fail : ' . $e->getMessage();
+            }
+        }
+
+        public function getAllMovies(){
+            $this->allMovies();
+            return $this->moviesList;
+        }
+
 
         // public static function addPoster($title){
 
@@ -53,7 +70,7 @@
 
             if(isset($uploadFile)){
 
-                $upload_dir = './movies_poster/';
+                $upload_dir = './assets/posters/';
 
                 $tmp_name = $_FILES['uploadFile']['tmp_name'];
 
@@ -71,7 +88,7 @@
                 $poster = "$upload_dir"."$title" . "." . $new_ext;
 
             }else{
-                $poster = 'movies_poster/default.jpg';
+                $poster = 'assets/posters/default.jpg';
             }
 
             try{

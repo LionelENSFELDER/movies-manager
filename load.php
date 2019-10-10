@@ -5,15 +5,12 @@
     ini_set('display_startup_errors', 1);
     error_reporting( E_ALL );
 
-    // require_once('movies_manager.php');
-    // require_once('auth_class.php');
-    //require_once('./src/auth_auth.php');
-    // require_once('movie.php');
-    //require_once('movie_view.php');
+    
+    
     spl_autoload_register(function ($class) {
         include 'classes/' . $class . '.php';
     });
-
+    
     $app = App::Get();
     $db = $app->getDb();
     $user = $app->getUser();
@@ -21,6 +18,14 @@
     $auth = $app->getAuth();
     $twig = $app->getTwig();
     
+
+    
+    // require_once('movies_manager.php');
+    // require_once('auth_class.php');
+    //require_once('./src/auth_auth.php');
+    // require_once('movie.php');
+    //require_once('movie_view.php');
+
 
     // require_once('./templates/navbar.php');
 
