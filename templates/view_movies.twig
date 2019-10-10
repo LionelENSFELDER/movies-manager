@@ -1,0 +1,73 @@
+{% extends 'default.twig' %}
+
+{% block body %}
+
+<section class="">
+	<div class="container">
+        <div class="row">
+
+			{% for i in row %}
+
+        	<!-- Movie card -->
+			<div class="col-lg-4 col-md-12 col-sm-12 mb-4">
+				<div class="card-deck p-4">
+					<div class="card bg-transparent border-0 text-left text-white hover-scale">
+						<img class="card-img" src="{{ i.poster }}" title="{{ i.title }}" alt="{{ i.title }}_poster">
+						<div class="card-img-overlay rounded">
+						</div>
+						<div class="card-footer px-0 bg-transparent">
+							<h3 class="card-title">{{ i.title }}</h3>
+							<div class="row">
+								<div class="col-6">
+									<button type="button" class="btn btn-outline-light btn-sm">{{ i.year }}</button>
+									<button type="button" class="btn btn-outline-light btn-sm">{{ i.tag }}</button>
+								</div>
+							</div>
+						</div>
+
+						<!-- Card link to modal -->
+						<a href="" class="stretched-link" data-toggle="modal" data-target="#card{{ i.id }}"></a>  
+					</div>
+				</div>
+			</div>
+
+
+			<!-- Modal -->
+			<div class="modal fade" id="card{{ i.id }}" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel{{ i.id }}" aria-hidden="true">
+				<div class="modal-dialog" role="document">
+					<div class="modal-content">
+						<div class="modal-header">
+							<h5 class="modal-title" id="exampleModalLabel{{ i.id }}">{{ i.title }}</h5>
+							<button type="button" class="close" data-dismiss="modal" aria-label="Close">
+								<span aria-hidden="true">&times;</span>
+							</button>
+						</div>
+
+						<div class="modal-body">
+							<p>
+								<span class="">{{ i.year }}</span>
+								<span class="">{{ i.tag }}</span>
+							</p>
+							<p>
+								<span class="">{{ i.mainActor }}</span>
+							</p>
+							<p>
+								<span class="">{{ i.mainDirector }}</span>
+							</p>
+							<p>
+								<h3>Synopsis</h3>
+								{{ i.content }}
+							</p>
+						</div>
+
+					</div>
+				</div>
+			</div>
+
+			{% endfor %}
+			
+        </div>
+    </div>
+</section>
+
+{% endblock %}
