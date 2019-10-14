@@ -8,8 +8,6 @@
     $ctrl = new AppController();
     echo $ctrl->view_movies($list);
 
-    var_dump($auth);
-
 // if($auth === false){
 //     header('location:login.php');
 // }
