@@ -1,28 +1,31 @@
             
-            <section class="mb-5">
-                    <div class="container">
-                        <nav class="navbar navbar-expand-lg navbar-dark">
-                        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarTogglerDemo03" aria-controls="navbarTogglerDemo03" aria-expanded="false" aria-label="Toggle navigation">
-                            <span class="navbar-toggler-icon"></span>
-                        </button>
+<section class="mb-5">
+    <div class="container">
 
-                        <a class="navbar-brand" href="index.php"><i class="fab fa-youtube fa-sm
-                        mr-1"></i>Manager</a>
+        <nav class="navbar navbar-expand-lg navbar-dark">
 
-                        <div class="collapse navbar-collapse" id="navbarTogglerDemo03">
-                            <ul class="navbar-nav mr-auto mt-2 mt-lg-0">
-                            {% if auth == false %}
-                                    <a class="nav-item nav-link" href="signup.php">Signup</a>
-                                    <a class="nav-item nav-link" href="login.php">Login</a>
-                                        
-                            {% else %}
+            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarTogglerDemo03" aria-controls="navbarTogglerDemo03" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
 
-                                    <a class="nav-item nav-link" href="add.php"><i class="fas fa-plus-square mr-1"></i>Add a movie</a>
-                                    <a class="nav-item nav-link" href="profile.php">Profile</a>
-                                    <a class="nav-item nav-link" href="logout.php">Logout</a>
-                            {% endif %}
-                            </ul>
-                        </div>
-                        </nav>
-                    </div>
-            </section>
+            <a class="navbar-brand" href="index.php"><i class="fab fa-youtube fa-sm
+            mr-1"></i>Manager</a>
+
+            <div class="collapse navbar-collapse" id="navbarTogglerDemo03">
+                <ul class="navbar-nav mr-auto mt-2 mt-lg-0">
+
+                {% if auth == false %}
+                    <a class="nav-item nav-link" href="signup.php">Signup</a>
+                    <a class="nav-item nav-link" href="login.php">Login</a>  
+                    {% else %}
+                    <a class="nav-item nav-link" href="add_movie.php"><i class="fas fa-plus-square mr-1"></i>Add a movie</a>
+                    <a class="nav-item nav-link" href="profile.php">Profile</a>
+                    <a class="nav-item nav-link" href="logout.php">Logout</a>
+                {% endif %}
+
+                </ul>
+            </div>
+
+        </nav>
+    </div>
+</section>
