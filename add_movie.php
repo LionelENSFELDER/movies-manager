@@ -20,6 +20,10 @@
         $manager->setMovie($title, $content, $mainActor, $director, $tag, $year, $poster);
         header('location:index.php');
     }else{
-        $ctrl = new AppController();
-        echo $ctrl->add_movie();
+        if(App::Get()->getAuth() === false){
+            header('location:login.php');
+        }else{
+            $ctrl = new AppController();
+            echo $ctrl->add_movie();    
+        }
     }

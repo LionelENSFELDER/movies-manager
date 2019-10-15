@@ -1,5 +1,6 @@
 <?php
-    require_once('src/load.php');
-    $user->logout();
-    header('location:index.php');
-?>
+
+    require_once('load.php');
+    
+    $ctrl = new AuthController();
+    echo $ctrl->logout();

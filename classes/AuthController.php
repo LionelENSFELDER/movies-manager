@@ -11,16 +11,10 @@ class AuthController extends BaseController {
 
             $user = $this->app->getUser();
             $auth = $user->login($name, $password);
-    
-            if($auth === TRUE){
-                header("Location: index.php");
-            }else{
-                header("Location: login.php");
-            }
         }
 
         return $this->render('login.twig', [
-            'test' => 'truc'
+            
         ]);
     }
 
@@ -39,7 +33,9 @@ class AuthController extends BaseController {
             }
         }
 
-        return $this->render('signup.twig');
+        return $this->render('signup.twig', [
+            'auth'=> $this->getAuth()
+        ]);
     }
 
     public function logout(){
@@ -57,19 +53,23 @@ class AuthController extends BaseController {
         if(isset($_POST['edit_profile'])){
             return $this->render('edit_account.twig', [
                 'accountName' => $accountName,
-                'accountPic' => $accountPic
+                'accountPic' => $accountPic,
+                'auth'=> $this->getAuth()
             ]);
         }
 
         return $this->render('profile.twig', [
             'accountName' => $accountName,
-            'accountPic' => $accountPic
+            'accountPic' => $accountPic,
+            'auth'=> $this->getAuth()
         ]);
 
     }
 
     public function prepare_edit_account(){
-        return $this->render('edit_account.twig');
+        return $this->render('edit_account.twig', [
+            'auth'=> $this->getAuth()
+        ]);
     }
 
     public function edit_account(){
