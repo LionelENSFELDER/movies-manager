@@ -13,7 +13,8 @@
                 </div>
                 <div class="form-group">
                     <label for="year">Year</label>
-                    <input type="text" class="form-control" id="year" name="year" placeholder="Year">
+                    {# <input type="text" class="form-control" id="year" name="year" placeholder="Year"> #}
+                    <input type="number" class="form-control" min="1900" max="2099" step="1" value="2019" id="year" name="year">
                 </div>
                 <div class="form-group">
                     <label for="mainActor">Main actor</label>
@@ -30,10 +31,19 @@
                 <div class="form-group">
                     <label for="tag">Tag <span class="text-danger">(only one for now)</span></label>
                     <select id="tag" name="tag" class="form-control" required>
-                        <option>UNTAGGED</option>
-                        <option>SCI-FI</option>
-                        <option>DRAMA</option>
-                        <option>COMEDY</option>
+                        <option>Untagged</option>
+                        <option>Action</option>
+                        <option>Animation</option>
+                        <option>Aventure</option>
+                        <option>Comedy</option>
+                        <option>Crime</option>
+                        <option>Drama</option>
+                        <option>Fantasy</option>
+                        <option>Horror</option>
+                        <option>Romance</option>
+                        <option>Science Fiction</option>
+                        <option>Thriller</option>
+                        <option>Western</option>
                     </select>
                 </div>
                 <div class="form-group">
