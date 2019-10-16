@@ -1,12 +1,9 @@
 <?php
     require_once('load.php');
 
-
-    if($auth === false){
+    if(App::Get()->getAuth() === false){
         header( 'location:login.php' );
+    }else{
+        $ctrl = new AuthController();
+        echo $ctrl->edit_account();
     }
-
-
-    $ctrl = new AuthController();
-    echo $ctrl->edit_account();
-    
