@@ -11,6 +11,7 @@ class AuthController extends BaseController {
 
             $user = $this->app->getUser();
             $auth = $user->login($name, $password);
+            header('location:login.php');
         }
 
         return $this->render('login.twig', [
@@ -18,7 +19,7 @@ class AuthController extends BaseController {
         ]);
     }
 
-    public function signup(){
+    public function add_account(){
         if (isset($_POST['name']) AND isset($_POST['password'])){
 
             $username = filter_var($_POST['name'], FILTER_SANITIZE_STRING);
@@ -33,7 +34,7 @@ class AuthController extends BaseController {
             }
         }
 
-        return $this->render('signup.twig', [
+        return $this->render('add_account.twig', [
             'auth'=> $this->getAuth()
         ]);
     }
@@ -45,12 +46,12 @@ class AuthController extends BaseController {
         header('location:index.php');
     }
 
-    public function profile_view(){
+    public function view_account(){
 
         $accountName = $this->app->getAccountName();
         $accountPic = $this->app->getProfilePic();
 
-        if(isset($_POST['edit_profile'])){
+        if(isset($_POST['edit_account'])){
             return $this->render('edit_account.twig', [
                 'accountName' => $accountName,
                 'accountPic' => $accountPic,
@@ -58,7 +59,7 @@ class AuthController extends BaseController {
             ]);
         }
 
-        return $this->render('profile.twig', [
+        return $this->render('view_account.twig', [
             'accountName' => $accountName,
             'accountPic' => $accountPic,
             'auth'=> $this->getAuth()
@@ -80,13 +81,13 @@ class AuthController extends BaseController {
                 $password = $_POST['password'];
                 $accountId = $user->getAccountId();
                 $user->edit_account($accountId, $db, $username, $password);
-                header('location:profile.php');
+                header('location:view_account.php');
             }else{
                 $username = $_POST['name'];
                 $password = $_POST['password'];
                 $accountId = $user->getAccountId();
                 $user->edit_account($accountId, $db, $username, $password);
-                header('location:profile.php');
+                header('location:view_account.php');
             }
         }else{
             echo 'Nothing posted';
