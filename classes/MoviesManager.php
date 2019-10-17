@@ -26,10 +26,15 @@
             return $this->moviesList;
         }
 
-        //call add_movie to setup a movie on bdd
-        public function setMovie($title, $content, $mainActor, $director, $tag, $year, $poster){
-            $this->add_movie($title, $content, $mainActor, $director, $tag, $year, $poster);
+        //check if movie already exist
+        public function titleCheck($title){
+            global $db;
+            $query = $db->prepare('SELECT COUNT(*) FROM movies WHERE title = ?');
+            $query->execute(array($title));
+            $check = $query->fetchColumn();
+            return $check;
         }
+
         //set movie in database via form
         public function add_movie($title, $content, $mainActor, $director, $tag, $year, $poster){
             $extension = pathinfo($_FILES['poster']['tmp_name'], PATHINFO_EXTENSION);
@@ -45,5 +50,10 @@
             }catch(PDOException $e){
                 echo 'Err: '.$e->getMessage();
             }
+        }
+
+        //call add_movie to setup a movie on bdd
+        public function setMovie($title, $content, $mainActor, $director, $tag, $year, $poster){
+            $this->add_movie($title, $content, $mainActor, $director, $tag, $year, $poster);
         }
     }

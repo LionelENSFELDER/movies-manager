@@ -17,13 +17,22 @@
         }
 
         $manager = new MoviesManager;
-        $manager->setMovie($title, $content, $mainActor, $director, $tag, $year, $poster);
-        header('location:index.php');
+
+        //check $title in bdd;
+        $check = $manager->titleCheck($title);
+        if($check > 0){
+            header('location:index.php');
+        }else{
+            $manager->setMovie($title, $content, $mainActor, $director, $tag, $year, $poster);
+            header('location:index.php');
+        }
+
+
     }else{
         if(App::Get()->getAuth() === false){
             header('location:login.php');
         }else{
             $ctrl = new AppController();
-            echo $ctrl->add_movie();    
+            echo $ctrl->add_movie();
         }
     }
