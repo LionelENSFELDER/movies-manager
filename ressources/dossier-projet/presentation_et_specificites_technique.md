@@ -1,6 +1,7 @@
 Présentation du projet et spécificités technique
-Movies Manager est une interface web de gestion de films qui se base sur les données rentrées par l’utilisateur. 
-Movie Manager est destiné dans un premier temps à rentrer les données d'un film manuellement via un formulaire puis les stocker en base de données. La restitution de tous les films présents en base de donnée se fait via la page 'XXXX.php'. 
+
+Movies Manager est une interface web de gestion de films qui se base sur les données rentrées par l’utilisateur.
+Movie Manager est destiné dans un premier temps à rentrer les données d'un film manuellement via un formulaire puis les stocker en base de données. La restitution de tous les films présents en base de donnée se fait via la page d'accueil. 
  
 Quelle est l'utilitée de movie manager ?
 
