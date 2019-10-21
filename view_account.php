@@ -6,6 +6,7 @@
     }else{
         $accountName = $app->getAccountName();
         $accountPic = $app->getProfilePic();
+        
         $ctrl = new AuthController();
         echo $ctrl->view_account();
     }

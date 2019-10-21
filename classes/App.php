@@ -9,6 +9,7 @@
         protected $user;
         protected $auth;
         protected $accountName;
+        protected $accountId;
         protected $twig;
 
         public function __construct() {
@@ -31,6 +32,11 @@
         public function getAuth(){
             $this->auth = $this->user->getAuth();
             return $this->auth;
+        }
+
+        public function getAccountId(){
+            $this->accountId = $this->user->getAccountId();
+            return $this->accountId;
         }
 
         public function getAccountName(){

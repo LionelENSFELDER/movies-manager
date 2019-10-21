@@ -13,11 +13,13 @@
                         <input type="text" name="name" class="form-control" placeholder="{{ accountName }}">
 
                         <label for="">Password</label>
-                        <input type="text" name="password" class="form-control" placeholder="*******" required>
+                        <input type="password" name="password" class="form-control" placeholder="*******" required>
+
 
                         <div class="mt-3">
-                            <a type="submit" name="cancel" class="btn btn-outline-warning" href="view_account.php">Cancel</a>
-                            <a type="submit" name="submit" class="btn btn-outline-info">Send</a>
+                            <a name="cancel" class="btn btn-outline-warning" href="view_account.php">Cancel</a>
+                            <button type="submit" name="send" class="btn btn-outline-info" href="">Send</button>
+                            <a name="delete" class="btn btn-outline-info" href="delete_account.php">Delete</a>
                         </div>
                     </form>
                 </div>

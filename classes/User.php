@@ -230,7 +230,7 @@ class User
     }
     
     /* Edit an existing user; arguments set to NULL are not changed */
-    public static function edit_account($account_id, $db, $username = NULL, $password = NULL, $enabled = NULL, $expiry = NULL)
+    public static function edit_account($account_id, &$db, $username = NULL, $password = NULL, $enabled = NULL, $expiry = NULL)
     {  
         /* Note: 
           each argument should be checked and validated before running the update query.

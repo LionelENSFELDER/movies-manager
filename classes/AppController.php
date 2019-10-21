@@ -18,4 +18,8 @@ class AppController extends BaseController {
             'auth'=> $this->getAuth()
         ]);
     }
+
+    public function edit_movie(){
+        return $this->render('add_movie.twig');
+    }
 }

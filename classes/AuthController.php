@@ -20,12 +20,15 @@ class AuthController extends BaseController {
     }
 
     public function add_account(){
+        $user = $this->app->getUser();
+        $db = $this->app->getDb();
+
         if (isset($_POST['name']) AND isset($_POST['password'])){
 
             $username = filter_var($_POST['name'], FILTER_SANITIZE_STRING);
             $password = filter_var($_POST['password'], FILTER_SANITIZE_STRING);
         
-            $res = $user->add_account($username, $password, $db);
+            $res = User::add_account($username, $password, $db);
             
             if($res === TRUE){
                 header('location:login.php');
@@ -51,13 +54,13 @@ class AuthController extends BaseController {
         $accountName = $this->app->getAccountName();
         $accountPic = $this->app->getProfilePic();
 
-        if(isset($_POST['edit_account'])){
-            return $this->render('edit_account.twig', [
-                'accountName' => $accountName,
-                'accountPic' => $accountPic,
-                'auth'=> $this->getAuth()
-            ]);
-        }
+        // if(isset($_POST['edit_account'])){
+        //     return $this->render('edit_account.twig', [
+        //         'accountName' => $accountName,
+        //         'accountPic' => $accountPic,
+        //         'auth'=> $this->getAuth()
+        //     ]);
+        // }
 
         return $this->render('view_account.twig', [
             'accountName' => $accountName,
@@ -67,33 +70,56 @@ class AuthController extends BaseController {
 
     }
 
-    public function prepare_edit_account(){
+    // public function prepare_edit_account(){
+    //     return $this->render('edit_account.twig', [
+    //         'auth'=> $this->getAuth()
+    //     ]);
+    // }
+
+    public function edit_account(){
+        $accountName = $this->app->getAccountName();
+        $accountPic = $this->app->getProfilePic();
+        $accountId = $this->app->getAccountId();
+        $db = $this->app->getDb();
+
+        if(isset($_POST['send'])){
+
+            $username=$_POST['name'];
+            $password = $_POST['password'];
+            $accountId = $accountId;
+
+            $res = User::edit_account($accountId, $db, $username, $password);
+
+            if($res === TRUE){
+                header('location:index.php');
+            }else if($res === FALSE){
+                echo 'Fail !';
+            }
+
+        }
+
+        // if(isset($_POST['delete'])){
+        //     $this->delete_account();
+        // }
+
         return $this->render('edit_account.twig', [
+            'accountName' => $accountName,
+            'accountPic' => $accountPic,
             'auth'=> $this->getAuth()
         ]);
     }
 
-    public function edit_account(){
+    public function delete_account(){
+        $accountId = $this->app->getAccountId();
+        $db = $this->app->getDb();
+        //$logout = $this->logout();
+        $res = User::delete_account($account_id, $db);
 
-        if(isset($_POST['submit'])){
-            if($_POST['name']===null){
-                $username=$accountName;
-                $password = $_POST['password'];
-                $accountId = $user->getAccountId();
-                $user->edit_account($accountId, $db, $username, $password);
-                header('location:view_account.php');
-            }else{
-                $username = $_POST['name'];
-                $password = $_POST['password'];
-                $accountId = $user->getAccountId();
-                $user->edit_account($accountId, $db, $username, $password);
-                header('location:view_account.php');
-            }
-        }else{
-            echo 'Nothing posted';
+        if($res === TRUE){
+            header('location:add_account.php');
+        }else if($res === FALSE){
+            echo 'Fail !';
         }
-
-        return $this->render('edit_account.twig');
     }
 
 }
