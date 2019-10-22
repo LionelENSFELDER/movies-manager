@@ -112,8 +112,7 @@ class AuthController extends BaseController {
     public function delete_account(){
         $accountId = $this->app->getAccountId();
         $db = $this->app->getDb();
-        //$logout = $this->logout();
-        $res = User::delete_account($account_id, $db);
+        $res = User::delete_account($accountId, $db);
 
         if($res === TRUE){
             header('location:add_account.php');
