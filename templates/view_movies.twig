@@ -44,17 +44,9 @@
 						</div>
 
 						<div class="modal-body">
-							<form method="POST" action="">
-								<label for="">Title</label>
-								<input type="text" class="form-control" placeholder="{{ i.title }}" readonly>
-								<label for="">Year</label>
-								<input type="text" class="form-control" placeholder="{{ i.year }}" readonly>
-								<div class="mt-3">
-									<button type="submit" class="btn btn-outline-warning" href="view_movie.php" name="edit">Edit</button>
-									<button type="submit" class="btn btn-outline-danger" name="">Cancel</button>
-								</div>
-							</form>
-							<br><br><br>
+
+							<img class="card-img" src="{{ i.poster }}" title="{{ i.title }}" alt="{{ i.title }}_poster">
+
 							<p>
 								<span class="">{{ i.year }}</span>
 								<span class="">{{ i.tag }}</span>
@@ -69,6 +61,22 @@
 								<h3>Synopsis</h3>
 								{{ i.content }}
 							</p>
+
+
+							<form method="POST" action="edit_movie.php">
+								<input type="hidden" name="id" class="form-control" value="{{ i.id }}">
+								<input type="hidden"  name="title" class="form-control" value="{{ i.title }}">
+								<input type="hidden"  name="year" class="form-control" value="{{ i.year }}">
+								<input type="hidden"  name="mainActor" class="form-control" value="{{ i.mainActor }}">
+								<input type="hidden"  name="director" class="form-control" value="{{ i.director }}">
+								<input type="hidden"  name="tag" class="form-control" value="{{ i.tag }}">
+								<input type="hidden"  name="content" class="form-control" value="{{ i.content }}">
+								<input type="hidden"  name="poster" class="form-control" value="{{ i.poster }}">
+								<div class="mt-3">
+									<button type="submit" class="btn btn-outline-warning" href="" name="edit">Edit</button>
+								</div>
+							</form>
+
 						</div>
 
 					</div>

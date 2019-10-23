@@ -1,0 +1,63 @@
+{% extends 'default.twig' %}
+
+{% block body %}
+
+<section class="vh-100 row h-100">
+    <div class="col-12">
+        <div class="card mb-3 mx-auto p-5 rounded shadow" style="width: 45rem;">
+            <h1>Edit {{title}}</h1>
+            <img class="card-img" src="{{ poster }}" title="{{ title }}" alt="{{ title }}_poster">
+            <form method="POST" action="add_movie.php" enctype="multipart/form-data">
+                <div class="form-group">
+                    <label for="title">Title</label>
+                    <input type="text" class="form-control" id="title" name="title" placeholder="{{title}}" required>
+                </div>
+                <div class="form-group">
+                    <label for="year">Year</label>
+                    {# <input type="text" class="form-control" id="year" name="year" placeholder="Year"> #}
+                    <input type="number" class="form-control" min="1900" max="2099" step="1" value="{{year}}" id="year" name="year">
+                </div>
+                <div class="form-group">
+                    <label for="mainActor">Main actor</label>
+                    <input type="text" class="form-control" id="mainActor" name="mainActor" placeholder="{{mainActor}}">
+                </div>
+                <div class="form-group">
+                    <label for="director">Director</label>
+                    <input type="text" class="form-control" id="director" name="director" placeholder="{{director}}">
+                </div>
+                <div class="form-group">
+                    <label for="content">Content</label>
+                    <textarea type="text" class="form-control" id="content" name="content" placeholder="{{content}}"></textarea>
+                </div>
+                <div class="form-group">
+                    <label for="tag">Tag <span class="text-danger">(only one for now)</span></label>
+                    <select id="tag" name="tag" class="form-control" required>
+                        <option>Untagged</option>
+                        <option>Action</option>
+                        <option>Animation</option>
+                        <option>Aventure</option>
+                        <option>Comedy</option>
+                        <option>Crime</option>
+                        <option>Drama</option>
+                        <option>Fantasy</option>
+                        <option>Horror</option>
+                        <option>Romance</option>
+                        <option>Science Fiction</option>
+                        <option>Thriller</option>
+                        <option>Western</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label for="poster">Poster <span class="text-danger">(.jpg only)<span></label>
+                    <input type="file" class="form-control-file" id="poster" name="poster" accept="image/*">
+                </div>
+                <div class="form-group">
+                    <a href="index.php" class="btn btn-secondary">Cancel</a>
+                    <button type="submit" class="btn btn-primary" id="submit" name="submit">Submit</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</section>
+
+{% endblock %}
