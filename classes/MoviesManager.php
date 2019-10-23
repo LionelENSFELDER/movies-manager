@@ -35,7 +35,7 @@
             return $check;
         }
 
-        //set movie in database via form
+        //set movie in database
         public function add_movie($title, $content, $mainActor, $director, $tag, $year, $poster){
             $extension = pathinfo($_FILES['poster']['tmp_name'], PATHINFO_EXTENSION);
             $new_extension = ".jpg";
@@ -52,8 +52,24 @@
             }
         }
 
-        //call add_movie to setup a movie on bdd
+        //setup a movie on bdd
         public function setMovie($title, $content, $mainActor, $director, $tag, $year, $poster){
             $this->add_movie($title, $content, $mainActor, $director, $tag, $year, $poster);
         }
+
+        //update movie in bdd
+        public function edit_movie($id, $title, $year, $mainActor, $director, $tag, $content, $poster){
+            try{
+                global $db;
+                $query = $db->prepare('UPDATE movies SET title= :title WHERE id= :id');
+                $query->execute(array(
+                    'title'=>$title,
+                    'id'=>$id
+                ));
+                return TRUE;
+            }catch(PDOException $e){
+                echo 'Err: '.$e->getMessage();
+            }
+        }
+
     }
