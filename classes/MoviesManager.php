@@ -59,13 +59,59 @@
 
         //update movie in bdd
         public function edit_movie($id, $title, $year, $mainActor, $director, $tag, $content, $poster){
+            global $db;
+
+            $array = array();
+            $sql = 'UPDATE movies SET ';
+            
+            if(!is_null($title)){
+                $sql .= 'title = ?, ';
+                $array[] = $title;
+            }
+
+            if(!is_null($year)){
+                $sql .= 'year = ?, ';
+                $array[] = $year;
+            }
+
+            if(!is_null($mainActor)){
+                $sql .= 'mainActor = ?, ';
+                $array[] = $mainActor;
+            }
+
+            if(!is_null($director)){
+                $sql .= 'director = ?, ';
+                $array[] = $director;
+            }
+
+            if(!is_null($tag)){
+                $sql .= 'tag = ?, ';
+                $array[] = $tag;
+            }
+
+            if(!is_null($content)){
+                $sql .= 'content = ?, ';
+                $array[] = $content;
+            }
+
+            if(count($array) == 0){
+                return TRUE;
+            }
+
+            //substract last comma and space
+            $sql = mb_substr($sql, 0, -2) . ' WHERE id = ?';
+            $array[] = $id;
+            
             try{
-                global $db;
-                $query = $db->prepare('UPDATE movies SET title= :title WHERE id= :id');
-                $query->execute(array(
-                    'title'=>$title,
-                    'id'=>$id
-                ));
+                $query = $db->prepare($sql);
+                $query->execute($array);
+
+                // $query = $db->prepare('UPDATE movies SET title= :title WHERE id= :id');
+                // $query->execute(array(
+                //     'title'=>$title,
+                //     'id'=>$id
+                // ));
+
                 return TRUE;
             }catch(PDOException $e){
                 echo 'Err: '.$e->getMessage();
