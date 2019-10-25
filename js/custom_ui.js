@@ -1,10 +1,12 @@
 //navbar scroll behavior
 window.onscroll = () => {
 	let navbar = document.getElementById("navbar");
-
-	if (window.scrollY <= 80) {
-		navbar.classList.remove("bg-success");
-	} else if (window.scrollY > 80) {
-		navbar.classList.add("bg-success");
+    let brand = document.getElementById("brand");
+	if (window.scrollY <= 50) {
+        navbar.classList.remove("bg-success");
+        //navbar.classList.add("text-success");
+	} else if (window.scrollY > 50) {
+        navbar.classList.add("bg-success");
+        brand.classList.remove("text-success");
 	}
 };
