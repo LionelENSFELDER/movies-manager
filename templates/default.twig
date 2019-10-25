@@ -14,14 +14,33 @@
         <link rel="icon" type="image/png" href="assets/favicons/favicon-32x32.png" sizes="32x32">
         <link rel="icon" type="image/png" href="assets/favicons/favicon-16x16.png" sizes="16x16">
     </head>
-    <body class="background-dark">
+    <body>
         {% include ('navbar.twig') %}
         {% block body %}
         {% endblock %}
+        {% include ('footer.twig') %}
         <!--SCRIPTS-->
         <script src="js/jquery-3.3.1.min.js"></script>
         <script src="js/bootstrap.bundle.js"></script>
         <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
         <script src="js/custom_ui.js"></script>
     </body>
+
+    {# <body class="background-dark py-3">
+        <div class="row">
+            <div class="col-1">
+                {% include ('navbar.twig') %}
+            </div>
+            <div class="col-11">
+                {% block body %}
+            </div>
+        </div>
+
+        {% endblock %}
+        <!--SCRIPTS-->
+        <script src="js/jquery-3.3.1.min.js"></script>
+        <script src="js/bootstrap.bundle.js"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
+        <script src="js/custom_ui.js"></script>
+    </body> #}
 </html>
