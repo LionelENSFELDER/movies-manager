@@ -38,6 +38,19 @@
             header('location:404.php');
         }
 
+    }else if(isset($_POST['delete'])){
+
+        $id = $_POST['id'];
+
+        $manager = new MoviesManager;
+        $res = $manager->delete_movie($id, $db);
+
+        if($res === TRUE){
+            header('location:index.php');
+        }else{
+            header('location:404.php');
+        }
+
     }else{
         header('location: index.php');
     }

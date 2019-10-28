@@ -118,4 +118,23 @@
             }
         }
 
+        public function delete_movie($id, $db){
+            global $db;
+
+            try{
+            /* First, we close any open session the account may have */
+            $sql = 'DELETE FROM movies WHERE (id = ?)';
+            $st = $db->prepare($sql);
+            $st->execute(array($id));
+            
+            }catch (PDOException $e){
+            /* Exception (SQL error) */
+            echo $e->getMessage();
+            return FALSE;
+            }
+            
+            /* If no exception occurs, return true */
+            return TRUE;
+        }
+
     }
