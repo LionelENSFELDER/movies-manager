@@ -19,11 +19,17 @@ class AppController extends BaseController {
         ]);
     }
 
-    // public function edit_movie(){
-    //     return $this->render('add_movie.twig');
-    // }
+    public function edit_movie(){
 
-    public function edit_movie($id, $title, $year, $mainActor, $director, $tag, $content, $poster){
+        $id = $_POST['id'];
+        $title = $_POST['title'];
+        $year = $_POST['year'];
+        $mainActor = $_POST['mainActor'];
+        $director = $_POST['director'];
+        $tag = $_POST['tag'];
+        $content = $_POST['content'];
+        $poster = $_POST['poster'];
+
         return $this->render('edit_movie.twig', [
             'page_title' => 'Edit movie',
             'id' => $id,
@@ -36,5 +42,6 @@ class AppController extends BaseController {
             'poster' => $poster,
             'auth' => $this->getAuth()
         ]);
+
     }
 }

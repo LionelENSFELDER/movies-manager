@@ -6,6 +6,19 @@
         protected $db;
         protected $moviesList;
 
+        //MIME type array
+        protected $mime_type = array(
+            'jpg'=>'image/jpeg',
+            'jpeg'=>'image/jpeg',
+            'png'=>'image/png',
+            'gif' => 'image/gif',
+            'bmp' => 'image/bmp',
+            'tiff' => 'image/tiff',
+            'tif' => 'image/tiff',
+            'svg' => 'image/svg+xml',
+            'svgz' => 'image/svg+xml'
+        );
+
         public function __construct(){
             $this->app = App::Get();
             $this->db = $this->app->getDb();
@@ -27,38 +40,133 @@
         }
 
         //check if movie already exist
-        public function titleCheck($title){
+        public function check(){
+
+            $title=filter_var($_POST['title'], FILTER_SANITIZE_STRING);
+            $content=filter_var($_POST['content'], FILTER_SANITIZE_STRING);
+            $mainActor=filter_var($_POST['mainActor'], FILTER_SANITIZE_STRING);
+            $director=filter_var($_POST['director'], FILTER_SANITIZE_STRING);
+            $tag=filter_var($_POST['tag'], FILTER_SANITIZE_STRING);
+            $year=filter_var($_POST['year'], FILTER_SANITIZE_NUMBER_INT);
+            $poster = NULL;
+
+
             global $db;
             $query = $db->prepare('SELECT COUNT(*) FROM movies WHERE title = ?');
             $query->execute(array($title));
             $check = $query->fetchColumn();
-            return $check;
-        }
 
-        //set movie in database
-        public function add_movie($title, $content, $mainActor, $director, $tag, $year, $poster){
-            $extension = pathinfo($_FILES['poster']['tmp_name'], PATHINFO_EXTENSION);
-            $new_extension = ".jpg";
-            move_uploaded_file($_FILES['poster']['tmp_name'], 'assets/posters/'.$title.$new_extension);
-            $poster = 'assets/posters/'.$title.$new_extension;
-
-            try{
-                //remplace global $db ?
-                global $db;
-                $query = $db->prepare('INSERT INTO movies (title, content, mainActor, director, tag, year, poster) VALUES (?, ?, ?, ?, ?, ?, ?)');
-                $query->execute(array($title, $content, $mainActor, $director, $tag, $year, $poster));
-            }catch(PDOException $e){
-                echo 'Err: '.$e->getMessage();
+            if($check > 0){
+                header('location:double-title-found.php');
+            }else{
+                $this->add_movie($title, $content, $mainActor, $director, $tag, $year, $poster);
             }
         }
 
-        //setup a movie on bdd
-        public function setMovie($title, $content, $mainActor, $director, $tag, $year, $poster){
+        //call add_movie();
+        public function set_movie(){
+
+            $title=filter_var($_POST['title'], FILTER_SANITIZE_STRING);
+            $content=filter_var($_POST['content'], FILTER_SANITIZE_STRING);
+            $mainActor=filter_var($_POST['mainActor'], FILTER_SANITIZE_STRING);
+            $director=filter_var($_POST['director'], FILTER_SANITIZE_STRING);
+            $tag=filter_var($_POST['tag'], FILTER_SANITIZE_STRING);
+            $year=filter_var($_POST['year'], FILTER_SANITIZE_NUMBER_INT);
+            $poster = NULL;
+
+            // if(isset($_POST['poster'])){
+            //     $poster = $_POST['poster'];
+            // }else{
+            //     $poster = NULL;
+            // }
+
             $this->add_movie($title, $content, $mainActor, $director, $tag, $year, $poster);
         }
 
+        //set movie in database
+        public function add_movie(){
+            
+            $mime_type = array(
+                'jpg'=>'image/jpeg',
+                'jpeg'=>'image/jpeg',
+                'png'=>'image/png',
+                'gif' => 'image/gif',
+                'bmp' => 'image/bmp',
+                'tiff' => 'image/tiff',
+                'tif' => 'image/tiff',
+                'svg' => 'image/svg+xml',
+                'svgz' => 'image/svg+xml'
+            );
+
+            $title=filter_var($_POST['title'], FILTER_SANITIZE_STRING);
+            $content=filter_var($_POST['content'], FILTER_SANITIZE_STRING);
+            $mainActor=filter_var($_POST['mainActor'], FILTER_SANITIZE_STRING);
+            $director=filter_var($_POST['director'], FILTER_SANITIZE_STRING);
+            $tag=filter_var($_POST['tag'], FILTER_SANITIZE_STRING);
+            $year=filter_var($_POST['year'], FILTER_SANITIZE_NUMBER_INT);
+            //$uploaded_file = $_POST['poster'];
+
+
+            // upload tests
+            if (isset($_FILES['poster']) AND $_FILES['poster']['error'] == 0){
+
+                // test size
+                if ($_FILES['poster']['size'] <= 1000000){
+                    // test extensions
+                    $file_infos = pathinfo($_FILES['poster']['name']);
+                    $extension_upload = $file_infos['extension'];
+                    $ext_array = array('jpg', 'jpeg', 'gif', 'png');
+                    // test if in array 
+                    if (in_array($extension_upload, $ext_array)){
+                        $upload_dir = 'assets/posters/';
+                        move_uploaded_file($_FILES['poster']['tmp_name'], $upload_dir.$title.'.'.$extension_upload);
+                        $poster = $upload_dir.$title.'.'.$extension_upload;
+                    }else{
+                        $poster ='assets/posters/default.jpg';
+                    }
+                }else{
+                    $poster ='assets/posters/default.jpg';
+                }
+            }else{
+                $poster ='assets/posters/default.jpg';
+            }
+
+            
+
+            //check if $title already exist
+            global $db;
+            $query = $db->prepare('SELECT COUNT(*) FROM movies WHERE title = ?');
+            $query->execute(array($title));
+            $check = $query->fetchColumn();
+
+            if($check > 0){
+                header('location:double-title-found.php');
+            }else{
+                try{
+                    //remplace global $db ?
+                    global $db;
+                    $query = $db->prepare('INSERT INTO movies (title, content, mainActor, director, tag, year, poster) VALUES (?, ?, ?, ?, ?, ?, ?)');
+                    $query->execute(array($title, $content, $mainActor, $director, $tag, $year, $poster));
+                    return TRUE;
+                }catch(PDOException $e){
+                    echo 'Err: '.$e->getMessage();
+                }
+            }
+
+        }
+
         //update movie in bdd
-        public function edit_movie($id, $title, $year, $mainActor, $director, $tag, $content, $poster){
+        public function edit_movie(){
+
+            $id = filter_var($_POST['id'], FILTER_SANITIZE_STRING);
+            $title = filter_var($_POST['title'], FILTER_SANITIZE_STRING);
+            $year = filter_var($_POST['year'], FILTER_SANITIZE_STRING);
+            $mainActor = filter_var($_POST['mainActor'], FILTER_SANITIZE_STRING);
+            $director = filter_var($_POST['director'], FILTER_SANITIZE_STRING);
+            $tag = filter_var($_POST['tag'], FILTER_SANITIZE_STRING);
+            $content = filter_var($_POST['content'], FILTER_SANITIZE_STRING);
+            $poster = NULL;
+
             global $db;
 
             $array = array();
@@ -105,35 +213,27 @@
             try{
                 $query = $db->prepare($sql);
                 $query->execute($array);
-
-                // $query = $db->prepare('UPDATE movies SET title= :title WHERE id= :id');
-                // $query->execute(array(
-                //     'title'=>$title,
-                //     'id'=>$id
-                // ));
-
                 return TRUE;
             }catch(PDOException $e){
                 echo 'Err: '.$e->getMessage();
             }
         }
 
-        public function delete_movie($id, $db){
+        public function delete_movie(){
+
+            $id = $_POST['id'];
             global $db;
 
             try{
-            /* First, we close any open session the account may have */
-            $sql = 'DELETE FROM movies WHERE (id = ?)';
-            $st = $db->prepare($sql);
-            $st->execute(array($id));
-            
+                $sql = 'DELETE FROM movies WHERE (id = ?)';
+                $st = $db->prepare($sql);
+                $st->execute(array($id));
             }catch (PDOException $e){
-            /* Exception (SQL error) */
-            echo $e->getMessage();
-            return FALSE;
+                echo $e->getMessage();
+                return FALSE;
             }
             
-            /* If no exception occurs, return true */
+            //
             return TRUE;
         }
 
