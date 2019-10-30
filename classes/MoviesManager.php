@@ -86,17 +86,7 @@
         //set movie in database
         public function add_movie(){
             
-            $mime_type = array(
-                'jpg'=>'image/jpeg',
-                'jpeg'=>'image/jpeg',
-                'png'=>'image/png',
-                'gif' => 'image/gif',
-                'bmp' => 'image/bmp',
-                'tiff' => 'image/tiff',
-                'tif' => 'image/tiff',
-                'svg' => 'image/svg+xml',
-                'svgz' => 'image/svg+xml'
-            );
+            
 
             $title=filter_var($_POST['title'], FILTER_SANITIZE_STRING);
             $content=filter_var($_POST['content'], FILTER_SANITIZE_STRING);
@@ -110,23 +100,29 @@
             // upload tests
             if (isset($_FILES['poster']) AND $_FILES['poster']['error'] == 0){
 
-                // test size
-                if ($_FILES['poster']['size'] <= 1000000){
-                    // test extensions
-                    $file_infos = pathinfo($_FILES['poster']['name']);
-                    $extension_upload = $file_infos['extension'];
-                    $ext_array = array('jpg', 'jpeg', 'gif', 'png');
-                    // test if in array 
-                    if (in_array($extension_upload, $ext_array)){
-                        $upload_dir = 'assets/posters/';
-                        move_uploaded_file($_FILES['poster']['tmp_name'], $upload_dir.$title.'.'.$extension_upload);
-                        $poster = $upload_dir.$title.'.'.$extension_upload;
+                if(mime_content_type($_FILES['poster']['tmp_name']) == 'image/jpeg'){
+
+                    // test size
+                    if ($_FILES['poster']['size'] <= 1000000){
+                        // test extensions
+                        $file_infos = pathinfo($_FILES['poster']['name']);
+                        $extension_upload = $file_infos['extension'];
+                        $ext_array = array('jpg', 'jpeg', 'gif', 'png');
+                        // test if in array 
+                        if (in_array($extension_upload, $ext_array)){
+                            $upload_dir = 'assets/posters/';
+                            move_uploaded_file($_FILES['poster']['tmp_name'], $upload_dir.$title.'.'.$extension_upload);
+                            $poster = $upload_dir.$title.'.'.$extension_upload;
+                        }else{
+                            $poster ='assets/posters/default.jpg';
+                        }
                     }else{
                         $poster ='assets/posters/default.jpg';
                     }
                 }else{
                     $poster ='assets/posters/default.jpg';
                 }
+
             }else{
                 $poster ='assets/posters/default.jpg';
             }
@@ -165,12 +161,89 @@
             $director = filter_var($_POST['director'], FILTER_SANITIZE_STRING);
             $tag = filter_var($_POST['tag'], FILTER_SANITIZE_STRING);
             $content = filter_var($_POST['content'], FILTER_SANITIZE_STRING);
-            $poster = NULL;
+            $file = $_POST['poster'];
+            //upload tests
+            // if (isset($_FILES['poster']) AND $_FILES['poster']['error'] == 0){
 
+            //     if(mime_content_type($_FILES['poster']['tmp_name']) == 'image/jpeg'){
+
+            //         // test size
+            //         if ($_FILES['poster']['size'] <= 1000000){
+            //             // test extensions
+            //             $file_infos = pathinfo($_FILES['poster']['name']);
+            //             $extension_upload = $file_infos['extension'];
+            //             $ext_array = array('jpg', 'jpeg', 'gif', 'png');
+            //             // test if in array 
+            //             if (in_array($extension_upload, $ext_array)){
+            //                 $upload_dir = 'assets/posters/';
+            //                 move_uploaded_file($_FILES['poster']['tmp_name'], $upload_dir.$title.'.'.$extension_upload);
+            //                 $poster = $upload_dir.$title.'.'.$extension_upload;
+            //             }else{
+            //                 $poster ='assets/posters/default.jpg';
+            //             }
+            //         }else{
+            //             $poster ='assets/posters/default.jpg';
+            //         }
+            //     }else{
+            //         $poster ='assets/posters/default.jpg';
+            //     }
+
+            // }else{
+            //     $poster ='assets/posters/default.jpg';
+            // }
+
+            //request build
             global $db;
 
             $array = array();
             $sql = 'UPDATE movies SET ';
+
+            // update poster + title when some change hap.
+            if(isset($title) AND empty($_FILES['poster'])){
+
+                //
+                try{
+
+                    $sql_poster = 'SELECT poster FROM movies WHERE (id = ?)';
+                    $query_poster = $db->prepare($sql_poster);
+                    $query_poster->execute(array($id));
+                    $array_poster = $query_poster->fetchAll(PDO::FETCH_COLUMN, 0);
+                    $old_poster = $array_poster[0];
+
+                }catch (PDOException $e){
+                    echo $e->getMessage();
+                }
+                //upload dir
+                //$upload_dir = 'assets/posters/';
+                $ext_regex = "#\..*#";
+                $title_regex = 'assets\/posters\/(.*)\..*';
+                //$ext = preg_match($ext_regex, $old_poster);
+                $new_poster = 'assets/posters/'.$title.'.jpg';
+                //rename file
+                rename($old_poster, $new_poster);
+                //
+                $poster = $new_poster;
+
+            }else if(isset($title) AND isset($_FILES['poster'])){
+
+                $poster = $this->upload_poster($title);
+                
+            }else if(empty($title) AND isset($_FILES['poster'])){
+                //
+                try{
+
+                    $sql_title = 'SELECT title FROM movies WHERE (id = ?)';
+                    $query_title = $db->prepare($sql_title);
+                    $query_title->execute(array($id));
+                    $array_title = $query_title->fetchAll(PDO::FETCH_COLUMN, 0);
+                    $current_title = $array_title[0];
+
+                    $poster = $this->upload_poster($current_title);
+
+                }catch (PDOException $e){
+                    echo $e->getMessage();
+                }
+            }
             
             if(!is_null($title)){
                 $sql .= 'title = ?, ';
@@ -202,6 +275,11 @@
                 $array[] = $content;
             }
 
+            if(!is_null($poster)){
+                $sql .= 'poster = ?, ';
+                $array[] = $poster;
+            }
+
             if(count($array) == 0){
                 return TRUE;
             }
@@ -217,6 +295,41 @@
             }catch(PDOException $e){
                 echo 'Err: '.$e->getMessage();
             }
+        }
+
+        public function upload_poster($target_title){
+
+            //upload tests
+            if (isset($_FILES['poster']) AND $_FILES['poster']['error'] == 0){
+
+                if(mime_content_type($_FILES['poster']['tmp_name']) == 'image/jpeg'){
+
+                    // test size
+                    if ($_FILES['poster']['size'] <= 1000000){
+                        // test extensions
+                        $file_infos = pathinfo($_FILES['poster']['name']);
+                        $extension_upload = $file_infos['extension'];
+                        $ext_array = array('jpg', 'jpeg', 'gif', 'png');
+                        // test if in array 
+                        if (in_array($extension_upload, $ext_array)){
+                            $upload_dir = 'assets/posters/';
+                            move_uploaded_file($_FILES['poster']['tmp_name'], $upload_dir.$target_title.'.'.$extension_upload);
+                            $poster = $upload_dir.$target_title.'.'.$extension_upload;
+                        }else{
+                            $poster ='assets/posters/default.jpg';
+                        }
+                    }else{
+                        $poster ='assets/posters/default.jpg';
+                    }
+                }else{
+                    $poster ='assets/posters/default.jpg';
+                }
+
+            }else{
+                $poster ='assets/posters/default.jpg';
+            }
+
+            return $poster;
         }
 
         public function delete_movie(){

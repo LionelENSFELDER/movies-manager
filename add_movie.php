@@ -11,8 +11,9 @@
         $res = $manager->add_movie();
         if($res === TRUE){
             //header('location:index.php');
+            $code = '1';
             $err = new Err;
-            echo $err->view_error();
+            echo $err->view_error($code);
         }
 
     }else{
