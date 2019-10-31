@@ -6,6 +6,17 @@
 
         header('location:login.php');
 
+    }else if(isset($_POST['update_poster'])){
+
+        $manager = new MoviesManager;
+        $res = $manager->update_poster();
+
+        if($res === TRUE){
+            header('location:index.php');
+        }else{
+            header('location:404.php');
+        }
+        
     }else if(isset($_POST['edit'])){//return controller view
 
         $ctrl = new AppController();
