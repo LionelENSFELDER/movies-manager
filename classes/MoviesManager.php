@@ -156,112 +156,112 @@
         public function edit_movie(){
 
             $id = filter_var($_POST['id'], FILTER_SANITIZE_STRING);
-            $title = filter_var($_POST['title'], FILTER_SANITIZE_STRING);
-            $year = filter_var($_POST['year'], FILTER_SANITIZE_STRING);
-            $mainActor = filter_var($_POST['mainActor'], FILTER_SANITIZE_STRING);
-            $director = filter_var($_POST['director'], FILTER_SANITIZE_STRING);
-            $tag = filter_var($_POST['tag'], FILTER_SANITIZE_STRING);
-            $content = filter_var($_POST['content'], FILTER_SANITIZE_STRING);
-            //$uploaded_file = $_POST['poster'];
+            $new_title = filter_var($_POST['title'], FILTER_SANITIZE_STRING);
+            $new_content = filter_var($_POST['content'], FILTER_SANITIZE_STRING);
+            $new_mainActor = filter_var($_POST['mainActor'], FILTER_SANITIZE_STRING);
+            $new_director = filter_var($_POST['director'], FILTER_SANITIZE_STRING);
+            $new_tag = filter_var($_POST['tag'], FILTER_SANITIZE_STRING);
+            $new_year = filter_var($_POST['year'], FILTER_SANITIZE_STRING);
 
             //request build
-            global $db;
-
             $array = array();
             $sql = 'UPDATE movies SET ';
             
-            if(!is_null($title)){
+            if(!empty($new_title)){
                 $sql .= 'title = ?, ';
-                $array[] = $title;
+                $array[] = $new_title;
             }
-
-            if(!is_null($year)){
-                $sql .= 'year = ?, ';
-                $array[] = $year;
-            }
-
-            if(!is_null($mainActor)){
-                $sql .= 'mainActor = ?, ';
-                $array[] = $mainActor;
-            }
-
-            if(!is_null($director)){
-                $sql .= 'director = ?, ';
-                $array[] = $director;
-            }
-
-            if(!is_null($tag)){
-                $sql .= 'tag = ?, ';
-                $array[] = $tag;
-            }
-
-            if(!is_null($content)){
+            if(!empty($new_content)){
                 $sql .= 'content = ?, ';
-                $array[] = $content;
+                $array[] = $new_content;
             }
-
-            // if(!is_null($poster)){
-            //     $sql .= 'poster = ?, ';
-            //     $array[] = $poster;
-            // }
-
+            if(!empty($new_mainActor)){
+                $sql .= 'mainActor = ?, ';
+                $array[] = $new_mainActor;
+            }
+            if(!empty($new_director)){
+                $sql .= 'director = ?, ';
+                $array[] = $new_director;
+            }
+            if(!empty($new_tag)){
+                $sql .= 'tag = ?, ';
+                $array[] = $new_tag;
+            }
+            if(!empty($new_year)){
+                $sql .= 'year = ?, ';
+                $array[] = $new_year;
+            }
+            //
             if(count($array) == 0){
                 return TRUE;
             }
 
             //substract last comma and space
-            $sql = mb_substr($sql, 0, -2) . ' WHERE id = ?';
+            $final_sql = mb_substr($sql, 0, -2) . ' WHERE id = ?';
             $array[] = $id;
             
             try{
-                $query = $db->prepare($sql);
+                //remplace global $db ?
+                global $db;
+                $query = $db->prepare($final_sql);
                 $query->execute($array);
                 return TRUE;
             }catch(PDOException $e){
-                echo 'Err: '.$e->getMessage();
+                echo $e->getMessage();
             }
         }
 
         public function update_poster(){
 
-            $id = $_POST['id'];
             $title = $_POST['title'];
+            $id = $_POST['id'];
 
             // upload tests
-            if (isset($_FILES['poster']) AND $_FILES['poster']['error'] == 0){
+            if (!empty($_FILES['poster']) AND $_FILES['poster']['error'] == 0){
 
                 if(mime_content_type($_FILES['poster']['tmp_name']) == 'image/jpeg'){
 
                     // test size
-                    if ($_FILES['poster']['size'] <= 10000000){
+                    if ($_FILES['poster']['size'] <= 1000000){
                         // test extensions
                         $file_infos = pathinfo($_FILES['poster']['name']);
                         $extension_upload = $file_infos['extension'];
-                        $ext_array = array('jpg');
+                        $ext_array = array('jpg', 'jpeg', 'gif', 'png');
                         // test if in array 
                         if (in_array($extension_upload, $ext_array)){
                             $upload_dir = 'assets/posters/';
                             move_uploaded_file($_FILES['poster']['tmp_name'], $upload_dir.$title.'.'.$extension_upload);
-                            return TRUE;
-                            //$poster = $upload_dir.$title.'.'.$extension_upload;
+                            $poster = $upload_dir.$title.'.'.$extension_upload;
                         }else{
-                            return FALSE;
+                            $poster ='assets/posters/default.jpg';
                         }
                     }else{
-                        return FALSE;
+                        $poster ='assets/posters/default.jpg';
                     }
                 }else{
-                    return FALSE;
+                    $poster ='assets/posters/default.jpg';
                 }
 
             }else{
-                return FALSE;
+                $poster ='assets/posters/default.jpg';
+            }
+
+            try{
+                //remplace global $db ?
+                global $db;
+                $sql = 'UPDATE movies SET poster = ? WHERE id = ?';
+                $query = $db->prepare($sql);
+                $query->execute(array($poster, $id));
+            }catch(PDOException $e){
+                echo 'Err: '.$e->getMessage();
             }
         }
 
         public function delete_movie(){
 
             $id = $_POST['id'];
+
+            //remplace global $db ?
             global $db;
 
             try{
@@ -269,7 +269,7 @@
                 $st = $db->prepare($sql);
                 $st->execute(array($id));
             }catch (PDOException $e){
-                echo $e->getMessage();
+                echo 'Err: '.$e->getMessage();
                 return FALSE;
             }
             

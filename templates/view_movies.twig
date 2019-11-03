@@ -37,7 +37,7 @@
 				<div class="modal-dialog" role="document">
 					<div class="modal-content">
 						<div class="modal-header">
-							<h5 class="modal-title" id="exampleModalLabel{{ i.id }}">{{ i.title }}</h5>
+							<h5 class="modal-title" id="exampleModalLabel{{ i.id }}">Title: {{ i.title }}</h5>
 							<button type="button" class="close" data-dismiss="modal" aria-label="Close">
 								<span aria-hidden="true">&times;</span>
 							</button>
@@ -45,17 +45,19 @@
 
 						<div class="modal-body">
 
-							<img class="card-img" src="{{ i.poster }}" title="{{ i.title }}" alt="{{ i.title }}_poster">
-
+							{# <img class="card-img" src="{{ i.poster }}" title="{{ i.title }}" alt="{{ i.title }}_poster"> #}
+							
 							<p>
-								<span class="">{{ i.year }}</span>
-								<span class="">{{ i.tag }}</span>
+								<span class="">year: {{ i.year }}</span>
 							</p>
 							<p>
-								<span class="">{{ i.mainActor }}</span>
+								<span class="">tag: {{ i.tag }}</span>
 							</p>
 							<p>
-								<span class="">{{ i.mainDirector }}</span>
+								<span class="">Main actor: {{ i.mainActor }}</span>
+							</p>
+							<p>
+								<span class="">Director: {{ i.director }}</span>
 							</p>
 							<p>
 								<h3>Synopsis</h3>
@@ -72,7 +74,7 @@
 								</div>
 
 								<div class="mt-3">
-									<button type="submit" class="btn btn-outline-info" href="" name="update_poster">Update poster</button>
+									<button type="submit" class="btn btn-outline-info" href="" name="update-poster">Update poster</button>
 								</div>
 							</form>
 

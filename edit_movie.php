@@ -6,16 +6,12 @@
 
         header('location:login.php');
 
-    }else if(isset($_POST['update_poster'])){
+    }else if(isset($_POST['update-poster'])){
 
         $manager = new MoviesManager;
-        $res = $manager->update_poster();
+        $manager->update_poster();
 
-        if($res === TRUE){
-            header('location:index.php');
-        }else{
-            header('location:404.php');
-        }
+        //header('location:index.php');
         
     }else if(isset($_POST['edit'])){//return controller view
 
