@@ -1,6 +1,5 @@
 <?php
     require_once('load.php');
-
     
     if(App::Get()->getAuth() === false){//
 
@@ -9,9 +8,7 @@
     }else if(isset($_POST['update-poster'])){
 
         $manager = new MoviesManager;
-        $manager->update_poster();
-
-        //header('location:index.php');
+        $res = $manager->update_poster();
         
     }else if(isset($_POST['edit'])){//return controller view
 

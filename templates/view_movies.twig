@@ -64,14 +64,11 @@
 								{{ i.content }}
 							</p>
 
-							<form method="POST" action="edit_movie.php">
+							<form method="POST" action="edit_movie.php" enctype="multipart/form-data">
 								<input type="hidden" name="id" class="form-control" value="{{ i.id }}">
 								<input type="hidden"  name="title" class="form-control" value="{{ i.title }}">
-
-								<div class="form-group">
-									<label for="poster">Poster <span class="text-danger">(.jpg only)<span></label>
-									<input type="file" class="form-control-file" id="poster" name="poster" accept="image/*">
-								</div>
+								<label for="poster">Poster <span class="text-danger">(.jpg only)<span></label>
+								<input type="file" class="form-control-file" id="new-poster" name="new-poster" accept="image/*">
 
 								<div class="mt-3">
 									<button type="submit" class="btn btn-outline-info" href="" name="update-poster">Update poster</button>

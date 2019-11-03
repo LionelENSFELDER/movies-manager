@@ -168,6 +168,21 @@
             $sql = 'UPDATE movies SET ';
             
             if(!empty($new_title)){
+                try{
+                    //remplace global $db ?
+                    global $db;
+                    $sql_poster = 'SELECT poster FROM movies WHERE (id = ?)';
+                    $query_poster = $db->prepare($sql_poster);
+                    $query_poster->execute(array($id));
+                    $array_poster = $query_poster->fetchAll(PDO::FETCH_COLUMN, 0);
+                    $old_poster = $array_poster[0];
+        
+                }catch (PDOException $e){
+                    echo $e->getMessage();
+                }
+
+                $new_poster = 'assets/posters/'.$new_title.'.jpg';
+                rename($old_poster, $new_poster);
                 $sql .= 'title = ?, ';
                 $array[] = $new_title;
             }
@@ -213,44 +228,55 @@
 
         public function update_poster(){
 
-            $title = $_POST['title'];
             $id = $_POST['id'];
+            $title = $_POST['title'];
+
+            $upload_dir = 'assets/posters/';
+            $file_infos = pathinfo($_FILES['new-poster']['name']);
+            $tmp_name = $_FILES['new-poster']["tmp_name"];
+            $extension_upload = $file_infos['extension'];
+            $valid_extensions = array('jpg', 'jpeg', 'gif', 'png');
+            $check_extension = in_array($extension_upload, $valid_extensions);
+            $new_poster = $upload_dir.$title.'.'.$extension_upload;
+            // test if in array 
+            // if ($check_extension === TRUE){
+                $move = move_uploaded_file($_FILES['new-poster']["tmp_name"], 'assets/posters/'.$title.'.jpg');
+                if($move === TRUE){
+                    $poster = 'assets/posters/'.$title.'.jpg';
+
+                }else{
+                    $poster = 'assets/posters/default.jpg';
+                }
+            // }else{
+            //     $poster = 'assets/posters/zz.jpg';
+            // }
 
             // upload tests
-            if (!empty($_FILES['poster']) AND $_FILES['poster']['error'] == 0){
+            // if (isset($_FILES['poster']) 
+            // AND $_FILES['poster']['error'] == 0 
+            // AND mime_content_type($_FILES['poster']['tmp_name']) == 'image/jpeg' 
+            // AND $_FILES['poster']['size'] <= 1000000){
 
-                if(mime_content_type($_FILES['poster']['tmp_name']) == 'image/jpeg'){
+            //     $file_infos = pathinfo($_FILES['poster']['name']);
+            //     $extension_upload = $file_infos['extension'];
+            //     $ext_array = array('jpg', 'jpeg', 'gif', 'png');
+            //     // test if in array 
+            //     if (in_array($extension_upload, $ext_array)){
+            //         $upload_dir = 'assets/posters/';
+            //         move_uploaded_file($_FILES['poster']['tmp_name'], $upload_dir.$title.'.'.$extension_upload);
+            //         $poster = $upload_dir.$title.'.'.$extension_upload;
+            //     }else{
+            //         $poster = 'assets/posters/default.jpg';
+            //     }
 
-                    // test size
-                    if ($_FILES['poster']['size'] <= 1000000){
-                        // test extensions
-                        $file_infos = pathinfo($_FILES['poster']['name']);
-                        $extension_upload = $file_infos['extension'];
-                        $ext_array = array('jpg', 'jpeg', 'gif', 'png');
-                        // test if in array 
-                        if (in_array($extension_upload, $ext_array)){
-                            $upload_dir = 'assets/posters/';
-                            move_uploaded_file($_FILES['poster']['tmp_name'], $upload_dir.$title.'.'.$extension_upload);
-                            $poster = $upload_dir.$title.'.'.$extension_upload;
-                        }else{
-                            $poster ='assets/posters/default.jpg';
-                        }
-                    }else{
-                        $poster ='assets/posters/default.jpg';
-                    }
-                }else{
-                    $poster ='assets/posters/default.jpg';
-                }
-
-            }else{
-                $poster ='assets/posters/default.jpg';
-            }
+            // }else{
+            //     $poster = 'assets/posters/default.jpg';
+            // }
 
             try{
                 //remplace global $db ?
                 global $db;
-                $sql = 'UPDATE movies SET poster = ? WHERE id = ?';
-                $query = $db->prepare($sql);
+                $query = $db->prepare('UPDATE movies SET poster = ? WHERE id = ?');
                 $query->execute(array($poster, $id));
             }catch(PDOException $e){
                 echo 'Err: '.$e->getMessage();

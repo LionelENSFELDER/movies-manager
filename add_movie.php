@@ -3,8 +3,6 @@
 
     if(isset($_POST['submit'])){
 
-        //$title=filter_var($_POST['title'], FILTER_SANITIZE_STRING);
-
         $manager = new MoviesManager;
 
         //check $title in bdd;
