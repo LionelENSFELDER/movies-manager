@@ -231,7 +231,9 @@
                 global $db;
                 $query = $db->prepare($final_sql);
                 $query->execute($array);
-                return TRUE;
+                if($query->execute($array) === TRUE){
+                    return TRUE;
+                }
             }catch(PDOException $e){
                 echo $e->getMessage();
             }
@@ -276,6 +278,9 @@
                 global $db;
                 $query = $db->prepare('UPDATE movies SET poster = ? WHERE id = ?');
                 $query->execute(array($poster, $id));
+                if($query->execute(array($poster, $id) === TRUE){
+                    return TRUE;
+                }
             }catch(PDOException $e){
                 echo 'Err: '.$e->getMessage();
             }
@@ -289,16 +294,36 @@
             global $db;
 
             try{
+                //remplace global $db ?
+                global $db;
+                $sql_poster = 'SELECT poster FROM movies WHERE (id = ?)';
+                $query_poster = $db->prepare($sql_poster);
+                $query_poster->execute(array($id));
+                $array_poster = $query_poster->fetchAll(PDO::FETCH_COLUMN, 0);
+                $poster_to_delete = $array_poster[0];
+            }catch (PDOException $e){
+                echo $e->getMessage();
+            }
+
+            $default_poster = 'assets/posters/default.jpg';
+
+            if($poster_to_delete === $default_poster){
+                //do nothing
+            }else{
+                unlink($poster_to_delete);
+            }
+
+            try{
                 $sql = 'DELETE FROM movies WHERE (id = ?)';
                 $st = $db->prepare($sql);
                 $st->execute(array($id));
+                if($st->execute(array($id)) === TRUE){
+                    return TRUE;
+                }
             }catch (PDOException $e){
                 echo 'Err: '.$e->getMessage();
                 return FALSE;
             }
-            
-            //
-            return TRUE;
         }
 
     }
