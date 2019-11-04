@@ -97,37 +97,6 @@
             $year=filter_var($_POST['year'], FILTER_SANITIZE_NUMBER_INT);
             //$uploaded_file = $_POST['poster'];
 
-
-            // upload tests
-            if (isset($_FILES['poster']) AND $_FILES['poster']['error'] == 0){
-
-                if(mime_content_type($_FILES['poster']['tmp_name']) == 'image/jpeg'){
-
-                    // test size
-                    if ($_FILES['poster']['size'] <= 1000000){
-                        // test extensions
-                        $file_infos = pathinfo($_FILES['poster']['name']);
-                        $extension_upload = $file_infos['extension'];
-                        $ext_array = array('jpg', 'jpeg', 'gif', 'png');
-                        // test if in array 
-                        if (in_array($extension_upload, $ext_array)){
-                            $upload_dir = 'assets/posters/';
-                            move_uploaded_file($_FILES['poster']['tmp_name'], $upload_dir.$title.'.'.$extension_upload);
-                            $poster = $upload_dir.$title.'.'.$extension_upload;
-                        }else{
-                            $poster ='assets/posters/default.jpg';
-                        }
-                    }else{
-                        $poster ='assets/posters/default.jpg';
-                    }
-                }else{
-                    $poster ='assets/posters/default.jpg';
-                }
-
-            }else{
-                $poster ='assets/posters/default.jpg';
-            }
-
             
 
             //check if $title already exist
@@ -139,6 +108,36 @@
             if($check > 0){
                 header('location:double-title-found.php');
             }else{
+                // upload tests
+                if (isset($_FILES['poster']) AND $_FILES['poster']['error'] == 0){
+
+                    if(mime_content_type($_FILES['poster']['tmp_name']) == 'image/jpeg'){
+
+                        // test size
+                        if ($_FILES['poster']['size'] <= 1000000){
+                            // test extensions
+                            $file_infos = pathinfo($_FILES['poster']['name']);
+                            $extension_upload = $file_infos['extension'];
+                            $ext_array = array('jpg', 'jpeg', 'gif', 'png');
+                            // test if in array 
+                            if (in_array($extension_upload, $ext_array)){
+                                $upload_dir = 'assets/posters/';
+                                move_uploaded_file($_FILES['poster']['tmp_name'], $upload_dir.$title.'.'.$extension_upload);
+                                $poster = $upload_dir.$title.'.'.$extension_upload;
+                            }else{
+                                $poster ='assets/posters/default.jpg';
+                            }
+                        }else{
+                            $poster ='assets/posters/default.jpg';
+                        }
+                    }else{
+                        $poster ='assets/posters/default.jpg';
+                    }
+
+                }else{
+                    $poster ='assets/posters/default.jpg';
+                }
+                
                 try{
                     //remplace global $db ?
                     global $db;
