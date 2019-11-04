@@ -9,6 +9,7 @@
 
         $manager = new MoviesManager;
         $res = $manager->update_poster();
+        header('location:index.php');
         
     }else if(isset($_POST['edit'])){//return controller view
 
