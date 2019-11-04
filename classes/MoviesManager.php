@@ -278,7 +278,7 @@
                 global $db;
                 $query = $db->prepare('UPDATE movies SET poster = ? WHERE id = ?');
                 $query->execute(array($poster, $id));
-                if($query->execute(array($poster, $id) === TRUE){
+                if($query->execute(array($poster, $id)) === TRUE){
                     return TRUE;
                 }
             }catch(PDOException $e){
