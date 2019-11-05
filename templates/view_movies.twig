@@ -2,34 +2,83 @@
 
 {% block body %}
 
-<section class="">
-	<div class="container">
+<section class="section">
+	<div class="container mt-5">
         <div class="row">
 			{# Add ---> card-deck #}
 			{% for i in row %}
 
         	<!-- Movie card -->
 			<div class="col-lg-3 col-md-12 col-sm-12 mb-3">
-				<div class="card-deck p-3">
+				<div class="card-deck p-0">
 					<div class="card bg-transparent border-0 text-left text-white hover-scale">
-						<img class="card-img" src="{{ i.poster }}" title="{{ i.title }}" alt="{{ i.title }}_poster">
-						<div class="card-img-overlay rounded">
+						<div class="card-body p-0">
+							<img class="card-img" src="{{ i.poster }}" title="{{ i.title }}" alt="{{ i.title }}_poster">
+							<div class="card-img-overlay rounded">
+							</div>
 						</div>
-						<div class="card-footer px-0 bg-transparent">
+						<div class="card-footer px-0 py-1 bg-transparent">
 							<h5 class="card-title text-muted">{{ i.title }}</h5>
-							<div class="row">
-								<div class="col-6">
-									<div class="link d-inline text-secondary">{{ i.year }}, </div>
-									<div class="link d-inline text-secondary">{{ i.tag }}</div>
-								</div>
+							<div class="">
+								<span class="link d-inline text-secondary">{{ i.year }} | </span>
+								<span class="link d-inline text-secondary">{{ i.tag }}</span>
 							</div>
 						</div>
 
 						<!-- Card link to modal -->
-						<a href="" class="stretched-link" data-toggle="modal" data-target="#card{{ i.id }}"></a>  
+						<a href="" class="stretched-link" data-toggle="modal" data-target="#card{{ i.id }}"></a>
 					</div>
 				</div>
 			</div>
+
+			
+
+			<!-- Modal test-->
+			<div class="modal fade" id="card{{ i.id }}" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+				<div class="modal-dialog modal-lg" role="document">
+					<div class="modal-content">
+						<div class="modal-header border-0 my-0">
+							<button type="button" class="close" data-dismiss="modal" aria-label="Close">
+							<span aria-hidden="true">&times;</span>
+							</button>
+						</div>
+						{# <div class="modal-body"> #}
+							<div class="modal-body mb-3">
+								<div class="row no-gutters">
+									<div class="col-md-4">
+										<img src="{{ i.poster }}" class="img-fluid" alt="poster of {{ i.title }}">
+									</div>
+									<div class="col-md-8">
+										<div class="card-body py-0">
+											<h3 class="card-title">{{ i.title }}</h3>
+											<p class="card-text">
+												<span><i class="fas fa-info-circle"></i>{{ i.year }}</span> | <span>{{ i.tag }}</span>
+												<br>
+												<span><i class="fas fa-user-ninja"></i>Main actor: {{ i.mainActor }}</span>
+												<br>
+												<span><i class="fas fa-video"></i>Director: {{ i.director }}</span>
+												<br>
+											</p>
+											<p class="card-text">
+												<h3>Synopsis</h3>
+												{{ i.content }}
+											</p>
+
+											<p class="card-text"><small class="text-muted">Last updated 3 mins ago</small></p>
+											<i class="far fa-heart"></i>
+										</div>
+									</div>
+								</div>
+							</div>
+						{# </div> #}
+					</div>
+				</div>
+			</div>
+
+
+
+
+
 
 
 			<!-- Modal -->
