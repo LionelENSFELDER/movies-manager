@@ -86,8 +86,6 @@
 
         //set movie in database
         public function add_movie(){
-            
-            
 
             $title=filter_var($_POST['title'], FILTER_SANITIZE_STRING);
             $content=filter_var($_POST['content'], FILTER_SANITIZE_STRING);
@@ -96,8 +94,6 @@
             $tag=filter_var($_POST['tag'], FILTER_SANITIZE_STRING);
             $year=filter_var($_POST['year'], FILTER_SANITIZE_NUMBER_INT);
             //$uploaded_file = $_POST['poster'];
-
-            
 
             //check if $title already exist
             global $db;
@@ -137,7 +133,7 @@
                 }else{
                     $poster ='assets/posters/default.jpg';
                 }
-                
+
                 try{
                     //remplace global $db ?
                     global $db;
@@ -255,7 +251,6 @@
                 $extension_upload = $file_infos['extension'];
                 $valid_extensions = array('jpg', 'jpeg', 'gif', 'png');
                 $check_extension = in_array($extension_upload, $valid_extensions);
-                $new_poster = $upload_dir.$title.'.'.$extension_upload;
 
                 if ($check_extension === TRUE){
                     $move = move_uploaded_file($tmp_name, $upload_dir.$title.'.'.$extension_upload);
@@ -271,6 +266,7 @@
             }else{
                 $poster = 'assets/posters/default.jpg';
             }
+            //end upload tests
 
             try{
                 //remplace global $db ?

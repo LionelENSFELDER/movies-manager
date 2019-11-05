@@ -5,15 +5,25 @@
 <section class="vh-100 row h-100">
 	<div class="col-sm-12 my-5">
 		<div class="card mb-3 mx-auto p-5 rounded shadow" style="width: 45rem;">
-			<form method="POST" action="">
-				<h1>Hello {{ accountName }}</h1>
+			<div>
+				<h1>Hello {{ account_name }}</h1>
+				<span>Your ID: {{ account_id }}</span>
 				<div class="d-flex flex-row justify-content-center">
-					<img src="{{ accountPic }}" alt="..." class="mx-auto" style="width:30%;">
+					<img src="{{ account_pic }}" alt="..." class="mx-auto" style="width:30%;">
 				</div>
+				<form method="POST" action="view_account.php" enctype="multipart/form-data">
+					<input type="hidden" name="account_id" class="form-control" value="{{ account_id }}">
+					<input type="hidden"  name="account_name" class="form-control" value="{{ account_name }}">
+					<label for="new-account-pic">Account pic<span class="text-danger">(.jpg only)<span></label>
+					<input type="file" class="form-control-file" id="new-account-pic" name="new-account-pic" accept="image/*">
+					<div class="mt-3">
+						<button type="submit" class="btn btn-outline-info" href="" name="update-pic">Update poster</button>
+					</div>
+				</form>
 
 				<div class="form-group">
 					<label for="username">Account name</label>
-					<input type="text" class="form-control" name="account-name" placeholder="{{ accountName }}" readonly>
+					<input type="text" class="form-control" name="account-name" placeholder="{{ account_name }}" readonly>
 					<a class="btn btn-link" href="" data-toggle="modal" data-target="#change-username-modal">Change your account name</a>
 				</div>
 
@@ -24,10 +34,9 @@
 				</div>
 
 				<div class="mt-3">
-					<a type="" class="btn btn-outline-warning" href="edit_account.php" name="edit_account">Edit</a>
 					<a name="delete" class="btn btn-outline-info" href="delete_account.php">Delete</a>
 				</div>
-			</form>
+			</div>
 		</div>
 	</div>
 </section>

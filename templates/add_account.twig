@@ -4,11 +4,11 @@
 <section class="vh-100 row h-100">
         <div class="col-sm-12 my-auto">
             <div class="card mb-3 mx-auto p-5 rounded shadow" style="width: 45rem;">
-                <form action="add_account.php" method="POST">
+                <form action="add_account.php" method="POST" enctype="multipart/form-data">
                     <h1>Create an account</h1>
                         <div class="form-group">
                             <label for="exampleInputEmail1">Username</label>
-                            <input type="text" name="name" class="form-control" placeholder="Name" required>
+                            <input type="text" name="username" class="form-control" placeholder="Username" required>
                         </div>
                         <div class="form-group">
                             <label for="exampleInputPassword1">Password</label>
@@ -19,7 +19,11 @@
                             <input type="password" name="password-repeated" class="form-control" placeholder="Reapeat password" required>
                         </div>
                         <div class="form-group">
-                            Already have an account ? <a type="button" class="btn btn-link p-0" href="login.php">Login !</a>
+                            <label for="account-pic">Account-pic <span class="text-danger">(.jpg only)<span></label>
+                            <input type="file" class="form-control-file" id="account-pic" name="account-pic" accept="image/*">
+                        </div>
+                        <div class="form-group">
+                            Already have an account ? <a type="button" class="btn-link p-0" href="login.php">Login !</a>
                         </div>
                     <button class="btn btn-primary" type="submit" value="">Send</button>
                 </form>

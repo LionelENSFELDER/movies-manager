@@ -10,15 +10,20 @@
         $ctrl = new AuthController;
         $ctrl->change_username();
 
-    }else if (isset($_POST['change-password'])){
+    }else if(isset($_POST['change-password'])){
 
         $ctrl = new AuthController;
         $ctrl->change_password();
         
-    }else{
+    }else if(isset($_POST['update-pic'])){
 
-        $accountName = $app->getAccountName();
-        $accountPic = $app->getProfilePic();
+        $ctrl = new AuthController;
+        $ctrl->update_pic();
+
+    }else{
+        // $accountId = $app->getAccountId();
+        // $accountName = $app->getAccountName();
+        // $accountPic = $app->getProfilePic();
         
         $ctrl = new AuthController();
         echo $ctrl->view_account();
