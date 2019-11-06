@@ -246,25 +246,26 @@
             AND $_FILES['new-poster']['size'] <= 1000000){
 
                 $upload_dir = 'assets/posters/';
+                $default_poster = 'assets/posters/default.jpg';
                 $file_infos = pathinfo($_FILES['new-poster']['name']);
                 $tmp_name = $_FILES['new-poster']['tmp_name'];
                 $extension_upload = $file_infos['extension'];
-                $valid_extensions = array('jpg', 'jpeg', 'gif', 'png');
+                $valid_extensions = array('jpg', 'jpeg');
                 $check_extension = in_array($extension_upload, $valid_extensions);
 
                 if ($check_extension === TRUE){
-                    $move = move_uploaded_file($tmp_name, $upload_dir.$title.'.'.$extension_upload);
+                    $final_name = $upload_dir.$title.'.'.$extension_upload;
+                    $move = move_uploaded_file($tmp_name, $final_name);
                     if($move === TRUE){
-                        $poster = $upload_dir.$title.'.'.$extension_upload;
-    
+                        $poster = $final_name;
                     }else{
-                        $poster = 'assets/posters/default.jpg';
+                        $poster = $default_poster;
                     }
                 }else{
-                    $poster = 'assets/posters/default.jpg';
+                    $poster = $default_poster;
                 }
             }else{
-                $poster = 'assets/posters/default.jpg';
+                $poster = $default_poster;
             }
             //end upload tests
 
