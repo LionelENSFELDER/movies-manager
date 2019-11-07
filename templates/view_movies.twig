@@ -1,116 +1,107 @@
 {% extends 'default.twig' %}
 
 {% block body %}
+	<section>
+		<div class="container my-5">
+			<div class="row">
+				{# Add ---> card-deck #}
+				{% for i in row %}
 
-<section class="section">
-	<div class="container mt-5">
-        <div class="row">
-			{# Add ---> card-deck #}
-			{% for i in row %}
-
-        	<!-- Movie card -->
-			<div class="col-lg-3 col-md-12 col-sm-12 mb-3">
-				<div class="card-deck p-0">
-					<div class="card bg-transparent border-0 text-left text-white hover-scale">
-						<div class="card-body p-0">
-							<img class="card-img" src="{{ i.poster }}" title="{{ i.title }}" alt="{{ i.title }}_poster">
-							<div class="card-img-overlay rounded">
-							</div>
-						</div>
-						<div class="card-footer px-0 py-1 bg-transparent">
-							<h5 class="card-title text-muted">{{ i.title }}</h5>
-							<div class="">
-								<span class="link d-inline text-secondary">{{ i.year }} | </span>
-								<span class="link d-inline text-secondary">{{ i.tag }}</span>
-							</div>
-						</div>
-
-						<!-- Card link to modal -->
-						<a href="" class="stretched-link" data-toggle="modal" data-target="#card{{ i.id }}"></a>
-					</div>
-				</div>
-			</div>
-
-			
-
-			<!-- Modal -->
-			<div class="modal fade" id="card{{ i.id }}" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
-				<div class="modal-dialog modal-lg" role="document">
-					<div class="modal-content">
-						<div class="modal-header border-0 my-0 p-1">
-							<button type="button" class="close" data-dismiss="modal" aria-label="Close">
-								{# <span aria-hidden="true">&times;</span> #}
-								<i class="fas fa-times-circle"></i>
-							</button>
-						</div>
-						<div class="modal-body mb-3 pb-0">
-							<div class="row no-gutters">
-								<div class="col-md-4">
-									<img src="{{ i.poster }}" class="img-fluid rounded" alt="poster of {{ i.title }}">
-									<div>
-										<form method="POST" action="edit_movie.php" enctype="multipart/form-data">
-											<input type="hidden" name="id" class="form-control" value="{{ i.id }}">
-											<input type="hidden"  name="title" class="form-control" value="{{ i.title }}">
-											<div class="row py-3">
-												<input type="file" class="input-file" id="new-poster" name="new-poster" accept="image/jpeg">
-												<label for="new-poster" class="mb-0 btn btn-link">Browse file</label>
-												<button type="submit" class="btn" name="update-poster"><i class="fas fa-upload mr-2"></i>Update poster</button>
-											</div>
-										</form>
+					<!-- Movie card -->
+					<div class="col-lg-3 col-md-12 col-sm-12 mb-3">
+						<div class="card-deck p-0">
+							<div class="card bg-transparent border-0 text-left text-white hover-scale">
+								<div class="card-body p-0">
+									<img class="img-fluid" src="{{ i.poster }}" title="{{ i.title }}" alt="{{ i.title }}_poster">
+									<div class="card-img-overlay rounded">
 									</div>
 								</div>
-								<div class="col-md-8">
-									<div class="card-body py-0">
-										<h3 class="card-title">{{ i.title }}</h3>
-										<p class="card-text">
-											<span class="badge badge-secondary"><i class="fas fa-calendar-alt mr-2"></i>{{ i.year }}</span>
-											<span class="badge badge-secondary"><i class="fas fa-tag mr-2"></i>{{ i.tag }}</span>
-											<span class="badge badge-secondary"><i class="fas fa-star mr-2"></i>{{ i.mainActor }}</span>
-											<span class="badge badge-secondary"><i class="fas fa-bullhorn mr-2"></i>{{ i.director }}</span>
-										</p>
-										<div class="row">
+								<div class="card-footer px-0 py-1 bg-transparent">
+									<h5 class="card-title text-muted">{{ i.title }}</h5>
+									<div class="">
+										<span class="link d-inline text-secondary">{{ i.year }} | </span>
+										<span class="link d-inline text-secondary">{{ i.tag }}</span>
+									</div>
+								</div>
+
+								<!-- Card link to modal -->
+								<a href="" class="stretched-link" data-toggle="modal" data-target="#card{{ i.id }}"></a>
+							</div>
+						</div>
+					</div>
+					
+
+					<!-- Modal -->
+					<div class="modal fade" id="card{{ i.id }}" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+						<div class="modal-dialog modal-lg" role="document">
+							<div class="modal-content">
+								<div class="modal-header border-0 my-0 p-1">
+									<button type="button" class="close" data-dismiss="modal" aria-label="Close">
+										{# <span aria-hidden="true">&times;</span> #}
+										<i class="fas fa-times-circle"></i>
+									</button>
+								</div>
+								<div class="modal-body mb-3 pb-0">
+									<div class="row">
+										{# col-4 #}
+										<div class="col-md-4">
+											<img src="{{ i.poster }}" class="img-fluid rounded" alt="poster of {{ i.title }}">
 											<div>
-												<button class="btn btn-link" href="">
-													<i class="far fa-heart"></i>
-													Add to bookmarks
-												</button>
-											</div>
-											<div>
-												<form method="POST" action="edit_movie.php">
+												<form method="POST" action="edit_movie.php" enctype="multipart/form-data">
 													<input type="hidden" name="id" class="form-control" value="{{ i.id }}">
 													<input type="hidden"  name="title" class="form-control" value="{{ i.title }}">
-													<input type="hidden"  name="year" class="form-control" value="{{ i.year }}">
-													<input type="hidden"  name="mainActor" class="form-control" value="{{ i.mainActor }}">
-													<input type="hidden"  name="director" class="form-control" value="{{ i.director }}">
-													<input type="hidden"  name="tag" class="form-control" value="{{ i.tag }}">
-													<input type="hidden"  name="content" class="form-control" value="{{ i.content }}">
-													<input type="hidden"  name="poster" class="form-control" value="{{ i.poster }}">
-													<div class="">
-														<button type="submit" class="btn" href="" name="edit"><i class="far fa-edit mr-2"></i>Edit infos</button>
-														<button type="submit" class="btn" href="" name="delete"><i class="far fa-trash-alt mr-2"></i>Delete</button>
+													<div class="form-group mt-3">
+														<input type="file" class="form-control-file" aria-describedby="fileHelp" id="new-poster" name="new-poster" accept="image/*">
+														<small id="fileHelp" class="form-text text-muted">Please browse a .jpg or .jpeg file...</small>
 													</div>
-													
+													<button type="submit" class="btn btn-outline-success" name="update-poster">Update poster</button>
 												</form>
 											</div>
 										</div>
-										<p class="card-text">
-											{{ i.content }}
-										</p>
+										{# end col-4 #}
+										{# col-8 #}
+										<div class="col-md-8">
+											<div class="card-body p-0">
+												<h3 class="card-title">{{ i.title }}</h3>
+												<p class="card-text">
+													<span class="badge badge-secondary"><i class="fas fa-calendar-alt mr-2"></i>{{ i.year }}</span>
+													<span class="badge badge-secondary"><i class="fas fa-tag mr-2"></i>{{ i.tag }}</span>
+													<span class="badge badge-secondary"><i class="fas fa-star mr-2"></i>{{ i.mainActor }}</span>
+													<span class="badge badge-secondary"><i class="fas fa-bullhorn mr-2"></i>{{ i.director }}</span>
+												</p>
+												<div class="d-inline-block mb-3">
+													
+													<form method="POST" action="edit_movie.php" enctype="multipart/form-data">
+														<input type="hidden" name="id" class="form-control" value="{{ i.id }}">
+														<input type="hidden"  name="title" class="form-control" value="{{ i.title }}">
+														<input type="hidden"  name="year" class="form-control" value="{{ i.year }}">
+														<input type="hidden"  name="mainActor" class="form-control" value="{{ i.mainActor }}">
+														<input type="hidden"  name="director" class="form-control" value="{{ i.director }}">
+														<input type="hidden"  name="tag" class="form-control" value="{{ i.tag }}">
+														<input type="hidden"  name="content" class="form-control" value="{{ i.content }}">
+														<button class="btn btn-link text-success" disabled><i class="far fa-heart mr-2"></i>Add to bookmarks</button>
+														<button type="submit" class="btn btn-link text-info" name="edit"><i class="far fa-edit mr-2"></i>Edit infos</button>
+														<button type="submit" class="btn btn-link text-danger" name="delete"><i class="far fa-trash-alt mr-2"></i>Delete</button>
+													</form>
 
-										<p class="card-text"><small class="text-muted">Last updated 3 mins ago</small></p>
+												</div>
+												<p class="card-text">
+													{{ i.content }}
+												</p>
+
+												<p class="card-text"><small class="text-muted">Last updated 3 mins ago</small></p>
+											</div>
+										</div>
+										{# end col-8 #}
 									</div>
 								</div>
+								{# modal body #}
 							</div>
 						</div>
 					</div>
-				</div>
+					<!-- END Modal -->
+				{% endfor %}
 			</div>
-			<!-- END Modal -->
-
-			{% endfor %}
-			
-        </div>
-    </div>
-</section>
-
+		</div>
+	</section>
 {% endblock %}

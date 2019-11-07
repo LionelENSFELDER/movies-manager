@@ -75,12 +75,6 @@
             $year=filter_var($_POST['year'], FILTER_SANITIZE_NUMBER_INT);
             $poster = NULL;
 
-            // if(isset($_POST['poster'])){
-            //     $poster = $_POST['poster'];
-            // }else{
-            //     $poster = NULL;
-            // }
-
             $this->add_movie($title, $content, $mainActor, $director, $tag, $year, $poster);
         }
 
@@ -104,14 +98,15 @@
             if($check > 0){
                 header('location:double-title-found.php');
             }else{
+                $default_poster = 'assets/posters/default.jpg';
                 //upload tests
                 if (isset($_FILES['poster']) 
                 AND $_FILES['poster']['error'] == 0 
                 AND mime_content_type($_FILES['poster']['tmp_name']) == 'image/jpeg' 
-                AND $_FILES['poster']['size'] <= 1000000){
+                AND $_FILES['poster']['size'] <= 5000000
+                ){
 
                     $upload_dir = 'assets/posters/';
-                    $default_poster = 'assets/posters/default.jpg';
                     $file_infos = pathinfo($_FILES['poster']['name']);
                     $tmp_name = $_FILES['poster']['tmp_name'];
                     $extension_upload = $file_infos['extension'];
@@ -177,12 +172,13 @@
                 }
 
                 $default_poster = 'assets/posters/default.jpg';
+                $upload_dir = 'assets/posters/';
 
                 if($old_poster === $default_poster){
                     //do nothing
                 }else if ($old_poster != $default_poster){
-                    $new_poster = 'assets/posters/'.$new_title.'.jpg';
-                    rename($old_poster, $new_poster);
+                    rename($old_poster, $upload_dir.$new_title.'.jpg');
+                    $new_poster = $upload_dir.$new_title.'.jpg';
                 }
 
                 $sql .= 'title = ?, ';
@@ -238,15 +234,12 @@
 
             $id = $_POST['id'];
             $title = $_POST['title'];
-
+            $default_poster = 'assets/posters/default.jpg';
+            // define('MB', 1048576);
             //upload tests
-            if (isset($_FILES['new-poster']) 
-            AND $_FILES['new-poster']['error'] == 0 
-            AND mime_content_type($_FILES['new-poster']['tmp_name']) == 'image/jpeg' 
-            AND $_FILES['new-poster']['size'] <= 1000000){
-
+            // if (isset($_FILES['new-poster']) AND $_FILES['new-poster']['error'] == 0 AND mime_content_type($_FILES['new-poster']['tmp_name']) == 'image/jpeg' AND $_FILES['new-poster']['size'] <= 5000000){
+            if (isset($_FILES['new-poster'])){
                 $upload_dir = 'assets/posters/';
-                $default_poster = 'assets/posters/default.jpg';
                 $file_infos = pathinfo($_FILES['new-poster']['name']);
                 $tmp_name = $_FILES['new-poster']['tmp_name'];
                 $extension_upload = $file_infos['extension'];
@@ -265,7 +258,7 @@
                     $poster = $default_poster;
                 }
             }else{
-                $poster = $default_poster;
+                $poster = 'assets/posters/Anna.jpg';
             }
             //end upload tests
 
@@ -274,7 +267,7 @@
                 global $db;
                 $query = $db->prepare('UPDATE movies SET poster = ? WHERE id = ?');
                 $query->execute(array($poster, $id));
-                if($query->execute(array($poster, $id)) === TRUE){
+                if($query->execute() === TRUE){
                     return TRUE;
                 }
             }catch(PDOException $e){

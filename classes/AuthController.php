@@ -212,25 +212,27 @@ class AuthController extends BaseController {
         AND $_FILES['new-account-pic']['size'] <= 1000000){
 
             $upload_dir = 'assets/avatars/';
+            $default_account_pic = 'assets/avatars/default.jpg';
             $file_infos = pathinfo($_FILES['new-account-pic']['name']);
             $tmp_name = $_FILES['new-account-pic']["tmp_name"];
             $extension_upload = $file_infos['extension'];
-            $valid_extensions = array('jpg', 'jpeg');
+            $valid_extensions = array('jpg', 'jpeg', 'bmp', 'png', 'gif');
             $check_extension = in_array($extension_upload, $valid_extensions);
 
             if ($check_extension === TRUE){
-                $move = move_uploaded_file($tmp_name, $upload_dir.$account_name.'.'.$extension_upload);
+                $new_account_pic = $upload_dir.$account_name.'.'.$extension_upload;
+                $move = move_uploaded_file($tmp_name, $new_account_pic);
                 if($move === TRUE){
-                    $pic = $upload_dir.$account_name.'.'.$extension_upload;
+                    $pic = $new_account_pic;
 
                 }else{
-                    $pic = 'assets/avatars/default.jpg';
+                    $pic = $default_account_pic;
                 }
             }else{
-                $pic = 'assets/avatars/default.jpg';
+                $pic = $default_account_pic;
             }
         }else{
-            $pic = 'assets/avatars/default.jpg';
+            $pic = $default_account_pic;
         }
         //end upload tests
 

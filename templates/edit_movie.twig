@@ -1,66 +1,93 @@
 {% extends 'default.twig' %}
 
 {% block body %}
+    <section>
+        <div class="container">
+            <div class="colum">
+                <div class="col-sm-12 col-lg-8 mx-auto">
+                    <div class="card p-5 rounded shadow">
+                        <h1>Edit {{title}}</h1>
+                        <span>ID = {{id}}</span>
+                        <form method="POST" action="edit_movie.php" enctype="multipart/form-data">
 
-<section class="vh-100 row h-100">
-    <div class="col-12">
-        <div class="card mb-3 mx-auto p-5 rounded shadow" style="width: 45rem;">
-            <h1>Edit {{title}}</h1>
-            <span>ID = {{id}}</span>
+                            {# movie id in hidden input #}
+                            <input type="hidden" class="form-control" id="id" name="id" value="{{ id }}">
 
-            {# <img class="card-img" src="{{ poster }}" title="{{ title }}" alt="{{ title }}_poster"> #}
+                            <div class="form-row">
+                                <div class="col-sm-12 col-md-6">
+                                    <div class="form-group">
+                                        <label for="title">Title</label>
+                                        <input type="text" class="form-control" id="title" name="title" value="{{title}}">
+                                    </div>
+                                </div>
+                                <div class="col-sm-12 col-md-6">
+                                    <div class="form-group">
+                                        <label for="year">Year</label>
+                                        <input type="number" class="form-control" min="1900" max="2099" step="1" value="{{year}}" id="year" name="year">
+                                    </div>
+                                </div>
+                            </div>
+                            
+                            <div class="form-row">
+                                <div class="col-sm-12 col-md-6">
+                                    <div class="form-group">
+                                        <label for="mainActor">Main actor</label>
+                                        <input type="text" class="form-control" id="mainActor" name="mainActor" value="{{mainActor}}">
+                                    </div>
+                                </div>
+                                <div class="col-sm-12 col-md-6">
+                                    <div class="form-group">
+                                        <label for="director">Director</label>
+                                        <input type="text" class="form-control" id="director" name="director" value="{{director}}">
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label for="content">Content</label>
+                                <textarea type="text" class="form-control" id="content" name="content">{{content}}</textarea>
+                            </div>
 
-            <form method="POST" action="edit_movie.php" enctype="multipart/form-data">
-
-                {# movie id in hidden input #}
-                <input type="hidden" class="form-control" id="id" name="id" value="{{ id }}">
-
-                <div class="form-group">
-                    <label for="title">Title</label>
-                    <input type="text" class="form-control" id="title" name="title" value="{{title}}">
+                            <div class="form-row">
+                                <div class="col-sm-12 col-md-6">
+                                    <div class="form-group">
+                                        <label for="tag">Tag <span class="text-danger">(only one for now)</span></label>
+                                        <select id="tag" name="tag" class="form-control">
+                                            <option value ="{{i.tag}}">{{i.tag}}</option>
+                                            <option>Action</option>
+                                            <option>Animation</option>
+                                            <option>Aventure</option>
+                                            <option>Comedy</option>
+                                            <option>Crime</option>
+                                            <option>Drama</option>
+                                            <option>Fantasy</option>
+                                            <option>Horror</option>
+                                            <option>Romance</option>
+                                            <option>Science Fiction</option>
+                                            <option>Thriller</option>
+                                            <option>Western</option>
+                                        </select>
+                                    </div>
+                                </div>
+                                <div class="col-sm-12 col-md-6">
+                                    <div class="form-group">
+                                        <label for="poster">Poster</label>
+                                        <div class="input-group">
+                                            <div class="custom-file">
+                                                <input type="file" class="custom-file-input" id="poster" name="poster" accept="image/*" disabled>
+                                                <label class="custom-file-label" for="poster">Choose file</label>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <a href="index.php" class="btn btn-outline-secondary">Cancel</a>
+                                <button type="submit" class="btn btn-outline-success" id="confirmedEdit" name="confirmedEdit">Submit</button>
+                            </div>
+                        </form>
+                    </div>
                 </div>
-                <div class="form-group">
-                    <label for="year">Year</label>
-                    {# <input type="text" class="form-control" id="year" name="year" placeholder="Year"> #}
-                    <input type="number" class="form-control" min="1900" max="2099" step="1" value="{{year}}" id="year" name="year">
-                </div>
-                <div class="form-group">
-                    <label for="mainActor">Main actor</label>
-                    <input type="text" class="form-control" id="mainActor" name="mainActor" value="{{mainActor}}">
-                </div>
-                <div class="form-group">
-                    <label for="director">Director</label>
-                    <input type="text" class="form-control" id="director" name="director" value="{{director}}">
-                </div>
-                <div class="form-group">
-                    <label for="content">Content</label>
-                    <textarea type="text" class="form-control" id="content" name="content">{{content}}</textarea>
-                </div>
-                <div class="form-group">
-                    <label for="tag">Tag <span class="text-danger">(only one, for now)</span></label>
-                    <select id="tag" name="tag" class="form-control">
-                        <option value ="{{tag}}">Untagged</option>
-                        <option>Action</option>
-                        <option>Animation</option>
-                        <option>Aventure</option>
-                        <option>Comedy</option>
-                        <option>Crime</option>
-                        <option>Drama</option>
-                        <option>Fantasy</option>
-                        <option>Horror</option>
-                        <option>Romance</option>
-                        <option>Science Fiction</option>
-                        <option>Thriller</option>
-                        <option>Western</option>
-                    </select>
-                </div>
-                <div class="form-group">
-                    <a href="index.php" class="btn btn-secondary">Cancel</a>
-                    <button type="submit" class="btn btn-primary" id="confirmedEdit" name="confirmedEdit">Submit</button>
-                </div>
-            </form>
+            </div>
         </div>
-    </div>
-</section>
-
+    </section>
 {% endblock %}

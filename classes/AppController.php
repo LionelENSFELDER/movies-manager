@@ -28,7 +28,6 @@ class AppController extends BaseController {
         $director = $_POST['director'];
         $tag = $_POST['tag'];
         $content = $_POST['content'];
-        $poster = $_POST['poster'];
 
         return $this->render('edit_movie.twig', [
             'page_title' => 'Edit movie',
@@ -39,7 +38,6 @@ class AppController extends BaseController {
             'director' => $director,
             'tag' => $tag,
             'content' => $content,
-            'poster' => $poster,
             'auth' => $this->getAuth()
         ]);
 

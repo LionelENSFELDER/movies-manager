@@ -1,65 +1,47 @@
 {% extends 'default.twig' %}
 
 {% block body %}
-
-	<section class="vh-100 row h-100">
-		<div class="col-sm-12 my-5">
-			{# !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!! #}
-			<div class="card mb-3 mx-auto p-5 rounded shadow" style="width: 45rem;">
-				<div class="row no-gutters">
-					<div class="col-md-4">
-					<img src="{{ account_pic }}" class="card-img" alt="...">
-					</div>
-					<div class="col-md-8">
-					<div class="card-body py-0">
-						<h3>Hello {{ account_name }}</h3>
-						<div class="row">
-							<button class="btn" name="" data-toggle="modal" data-target="#change-username-modal"><i class="far fa-edit mr-2"></i>{{ account_name }}</button>
-							<button class="btn" name="" data-toggle="modal" data-target="#change-username-modal"><i class="far fa-trash-alt mr-2"></i>{{ account_password }}</button>
+	<section>
+		<div class="container">
+			<div class="row">
+				<div class="col-12 col-lg-8 mx-auto">
+					{# CARD #}
+					<div class="card mb-3 mx-auto p-5 rounded shadow">
+						<div class="row no-gutters">
+							<div class="col-md-4">
+							<img src="{{ account_pic }}" class="card-img" alt="...">
+							<div>
+								<form method="POST" action="view_account.php" enctype="multipart/form-data">
+									<input type="hidden" name="account_id" class="form-control" value="{{ account_id }}">
+									<input type="hidden"  name="account_name" class="form-control" value="{{ account_name }}">
+									<div class="row py-3">
+										<input type="file" class="input-file" id="new-account-pic" name="new-account-pic" accept="image/*">
+										<label for="new-account-pic" class="mb-0 btn btn-link">Browse file</label>
+										<button type="submit" class="btn" name="update-pic"><i class="fas fa-upload mr-2"></i>Update</button>
+									</div>
+								</form>
+							</div>
+							</div>
+							<div class="col-md-8">
+							<div class="card-body py-0">
+								<h3>Hello {{ account_name }}</h3>
+								<p class="card-text">
+									<span class="badge badge-secondary"><i class="fas fa-fingerprint mr-2"></i>{{ account_id }}</span>
+									<span class="badge badge-secondary"><i class="fas fa-stopwatch mr-2"></i>1999-01-01</span>
+									<span class="badge badge-secondary"><i class="fas fa-unlock-alt mr-2"></i>Unlock</span>
+								</p>
+								<div class="d-inline-block">
+									<button type="button" class="btn btn-link text-success" data-toggle="modal" data-target="#change-username-modal"><i class="fas fa-user-edit mr-2"></i>Change name</button>
+									<button type="button" class="btn btn-link text-success" data-toggle="modal" data-target="#change-password-modal"><i class="fas fa-key mr-2"></i>Change password</button>
+								</div>
+								<p class="card-text"><small class="text-muted">Last updated 3 mins ago</small></p>
+							</div>
+							</div>
 						</div>
-						<button type="button" class="btn btn-outline-success" data-toggle="modal" data-target="#change-username-modal">Change account name</button>
-						<button type="button" class="btn btn-outline-success" data-toggle="modal" data-target="#change-username-modal">Change account password</button>
-						<p class="card-text"><small class="text-muted">Last updated 3 mins ago</small></p>
-					</div>
 					</div>
 				</div>
+				{# END CARD #}
 			</div>
-			{# !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!! #}
-			<div class="card mb-3 mx-auto p-5 rounded shadow" style="width: 45rem;">
-				<div>
-					<h1>Hello {{ account_name }}</h1>
-					<span>Your ID: {{ account_id }}</span>
-					<div class="d-flex flex-row justify-content-center">
-						<img src="{{ account_pic }}" alt="..." class="mx-auto" style="width:30%;">
-					</div>
-					<form method="POST" action="view_account.php" enctype="multipart/form-data">
-						<input type="hidden" name="account_id" class="form-control" value="{{ account_id }}">
-						<input type="hidden"  name="account_name" class="form-control" value="{{ account_name }}">
-						<label for="new-account-pic">Account pic<span class="text-danger">(.jpg only)<span></label>
-						<input type="file" class="form-control-file" id="new-account-pic" name="new-account-pic" accept="image/*">
-						<div class="mt-3">
-							<button type="submit" class="btn btn-outline-info" href="" name="update-pic">Update poster</button>
-						</div>
-					</form>
-
-					<div class="form-group">
-						<label for="username">Account name</label>
-						<input type="text" class="form-control" name="account-name" placeholder="{{ account_name }}" readonly>
-						<a class="btn btn-link" href="" data-toggle="modal" data-target="#change-username-modal">Change your account name</a>
-					</div>
-
-					<div class="form-group">
-						<label for="">Password</label>
-						<input type="password" class="form-control" placeholder="*******" readonly>
-						<a class="btn btn-link" href="" data-toggle="modal" data-target="#change-password-modal">Change your password</a>
-					</div>
-
-					<div class="mt-3">
-						<a name="delete" class="btn btn-outline-info" href="delete_account.php">Delete</a>
-					</div>
-				</div>
-			</div>
-			{# !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!! #}
 		</div>
 	</section>
 
@@ -131,5 +113,4 @@
 			</div>
 		</div>
 	</div>
-
 {% endblock %}
