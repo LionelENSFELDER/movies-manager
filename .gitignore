@@ -2,3 +2,6 @@ cache/
 vendor/
 dev.php
 assets/posters
+assets/avatars
+assets/wallpapers
+ressources/setup/
