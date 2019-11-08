@@ -1,6 +1,9 @@
 body{
-    background-image: url('../assets/wallpapers/wallpaper-black-3.jpg');
+    /* background-image: url('../assets/wallpapers/wallpaper-black-3.jpg'); */
     /* font-size: 1.1em; */
+}
+h1, h2, h3, h4, h5, h6{
+    font-weight: bold;
 }
 .background-dark{
     background-color: #131313;
@@ -27,4 +30,16 @@ a{
     overflow: hidden;
     position: absolute;
     z-index: -1;
+}
+.form-control{
+    background-color: #444;
+}
+.form-control:focus{
+    background-color: #444;
+}
+input[type='file']{
+    background-color: #444;
+}
+.custom-file-label{
+    background-color: #444;
 }

@@ -31,47 +31,31 @@
     </div>
 </div> #}
 
-<nav class="navbar navbar-expand-lg navbar-dark sticky-top">
-    <div id="navbar" class="container rounded">
+<nav class="navbar navbar-expand-lg navbar-dark bg-dark sticky-top mb-5">
+    <div id="navbar" class="container">
         <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarTogglerDemo03"
             aria-controls="navbarTogglerDemo03" aria-expanded="false" aria-label="Toggle navigation">
             <span class="navbar-toggler-icon"></span>
         </button>
-
-        <a id="brand" class="navbar-brand text-success" href="index.php"><i class="fab fa-stack-overflow fa-2x
-            mr-1"></i>MoviesStacker
-        </a>
+        <div class="px-5">
+            <a id="brand" class="navbar-brand" href="index.php">
+                <i class="fas fa-user-astronaut text-success fa-2x"></i>
+                <span class="font-weight-bold text-success">Movies</span><span class="font-weight-lighter">Space</span>
+            </a>
+        </div>
 
         <div class="collapse navbar-collapse" id="navbarTogglerDemo03">
             <ul class="navbar-nav ml-auto mt-2 mt-lg-0">
-                <a class="btn btn-link nav-item nav-link" href=""><i class="fas fa-user-astronaut mr-1"></i>ABOUT</a>
-                <a class="btn btn-link nav-item nav-link" href=""><i class="fas fa-glasses mr-1"></i>HOW TO USE</a>
+                <a class="btn btn-link text-white" href=""></i>About</a>
+                <a class="btn btn-link text-white" href=""></i>How to use</a>
 
                 {% if auth == false %}
-                    <div class="dropdown">
-                        <a class="btn btn-link nav-item nav-link dropdown-toggle" type="button" id="account" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                            <i class="fas fa-user-ninja mr-1"></i>
-                            ANONYMOUS USER
-                        </a>
-                        <div class="dropdown-menu" aria-labelledby="account">
-                            <a class="dropdown-item" href="add_account.php">CREATE AN ACCOUNT</a>
-                            <a class="dropdown-item" href="login.php">LOGIN</a>
-                        </div>
-                    </div>
-
+                    <a class="btn btn-link text-white" href="add_account.php"></i>Create an account</a>
+                    <a class="btn btn-success text-white" href="login.php"></i>Login</a>
                 {% else %}
-
-                    <a class="btn btn-link nav-item nav-link" href="add_movie.php"><i class="fas fa-plus-square mr-1"></i>ADD A MOVIE</a>
-                    <div class="dropdown">
-                        <a class="btn btn-link nav-item nav-link dropdown-toggle" type="button" id="account" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                            <i class="fas fa-user-ninja mr-1"></i>
-                            ACCOUNT
-                        </a>
-                        <div class="dropdown-menu" aria-labelledby="account">
-                            <a class="dropdown-item" href="view_account.php">VIEW ACCOUNT</a>
-                            <a class="dropdown-item" href="logout.php">LOGOUT</a>
-                        </div>
-                    </div>
+                    <a class="btn btn-link text-white" href="add_movie.php"><i class="fas fa-plus-square mr-1"></i>ADD A MOVIE</a>
+                    <a class="btn btn-link text-white" href="view_account.php"></i>View account</a>
+                    <a class="btn btn-success" href="logout.php"></i>Logout</a>
 
                 {% endif %}
             </ul>

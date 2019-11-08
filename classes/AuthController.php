@@ -71,7 +71,7 @@ class AuthController extends BaseController {
                 echo 'Passwords not match !';
             }
         }else{
-            echo 'You need to enter username AND password !';
+            // echo 'You need to enter username AND password !';
         }
 
         return $this->render('add_account.twig', [
