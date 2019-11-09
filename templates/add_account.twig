@@ -1,32 +1,39 @@
 {% extends 'default.twig' %}
 
 {% block body %}
-<section class="vh-100 row h-100">
-        <div class="col-sm-12 my-auto">
-            <div class="card mb-3 mx-auto p-5 rounded shadow" style="width: 45rem;">
-                <form action="add_account.php" method="POST" enctype="multipart/form-data">
-                    <h1>Create an account</h1>
-                        <div class="form-group">
-                            <label for="exampleInputEmail1">Username</label>
-                            <input type="text" name="username" class="form-control" placeholder="Username" required>
-                        </div>
-                        <div class="form-group">
-                            <label for="exampleInputPassword1">Password</label>
-                            <input type="password" name="password" class="form-control" placeholder="Password" required>
-                        </div>
-                        <div class="form-group">
-                            <label for="exampleInputPassword1">Reapeat password</label>
-                            <input type="password" name="password-repeated" class="form-control" placeholder="Reapeat password" required>
-                        </div>
-                        <div class="form-group">
-                            <label for="account-pic">Account-pic <span class="text-danger">(.jpg only)<span></label>
-                            <input type="file" class="form-control-file" id="account-pic" name="account-pic" accept="image/*">
-                        </div>
-                        <div class="form-group">
-                            Already have an account ? <a type="button" class="btn-link p-0" href="login.php">Login !</a>
-                        </div>
-                    <button class="btn btn-primary" type="submit" value="">Send</button>
-                </form>
+    <section>
+        <div class="container">
+            <div class="row">
+                <div class="col-8 col-lg-7 mx-auto">
+                    <div class="card mb-3 mx-auto p-5 rounded shadow">
+                        <form action="add_account.php" method="POST" enctype="multipart/form-data">
+                            <h1 class="mb-5 mx-auto">Create an account</h1>
+                                <div class="form-group">
+                                    <input type="text" name="username" class="form-control form-control-lg" placeholder="Username" required>
+                                </div>
+                                <div class="form-group">
+                                    <input type="password" name="password" class="form-control form-control-lg" placeholder="Password" required>
+                                </div>
+                                <div class="form-group">
+                                    <input type="password" name="password-repeated" class="form-control form-control-lg" placeholder="Reapeat password" required>
+                                </div>
+                                <div class="form-group">
+                                    <div class="custom-file">
+                                        <input type="file" class="custom-file-input" id="account-pic" name="account-pic" accept="image/*">
+                                        <label class="custom-file-label form-control form-control-lg" for="account-pic">Choose file (.jpg / .jpeg)</label>
+                                    </div>
+                                </div>
+                                {# <div class="form-group">
+                                    <label for="account-pic">Account-pic <span class="text-danger">(.jpg only)<span></label>
+                                    <input type="file" class="form-control-file" id="account-pic" name="account-pic" accept="image/*">
+                                </div> #}
+                                <div class="form-group">
+                                    Already have an account ? <a type="button" class="btn-link p-0" href="login.php">Login !</a>
+                                </div>
+                            <button type="submit" class="btn btn-outline-success btn-lg btn-block">Submit !</button>
+                        </form>
+                    </div>
+                </div>
             </div>
         </div>
     </section>
