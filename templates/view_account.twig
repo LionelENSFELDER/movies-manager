@@ -9,18 +9,22 @@
 					<div class="card mb-3 mx-auto p-5 rounded shadow">
 						<div class="row no-gutters">
 							<div class="col-md-4">
-							<img src="{{ account_pic }}" class="card-img" alt="...">
-							<div>
-								<form method="POST" action="view_account.php" enctype="multipart/form-data">
-									<input type="hidden" name="account_id" class="form-control" value="{{ account_id }}">
-									<input type="hidden"  name="account_name" class="form-control" value="{{ account_name }}">
-									<div class="row py-3">
-										<input type="file" class="input-file" id="new-account-pic" name="new-account-pic" accept="image/*">
-										<label for="new-account-pic" class="mb-0 btn btn-link">Browse file</label>
-										<button type="submit" class="btn" name="update-pic"><i class="fas fa-upload mr-2"></i>Update</button>
-									</div>
-								</form>
-							</div>
+								<img src="{{ account_pic }}" class="card-img" alt="...">
+								<div class="mt-3">
+									<form class="inline-form" method="POST" action="view_account.php" enctype="multipart/form-data">
+										<input type="hidden" name="account_id" class="form-control" value="{{ account_id }}">
+										<input type="hidden"  name="account_name" class="form-control" value="{{ account_name }}">
+										<div class="form-group mt-3">
+											<div class="input-group">
+												<div class="custom-file">
+													<input type="file" class="custom-file-input" id="new-account-pic" name="new-account-pic" accept="image/*">
+													<label class="custom-file-label" for="new-poster">.jpg / .jpeg</label>
+												</div>
+											</div>
+										</div>
+										<button type="submit" class="btn btn-outline-success btn-block" name="update-pic">Update picture</button>
+									</form>
+								</div>
 							</div>
 							<div class="col-md-8">
 							<div class="card-body py-0">
@@ -31,8 +35,8 @@
 									<span class="badge badge-secondary"><i class="fas fa-unlock-alt mr-2"></i>Unlock</span>
 								</p>
 								<div class="d-inline-block">
-									<button type="button" class="btn btn-link text-success" data-toggle="modal" data-target="#change-username-modal"><i class="fas fa-user-edit mr-2"></i>Change name</button>
-									<button type="button" class="btn btn-link text-success" data-toggle="modal" data-target="#change-password-modal"><i class="fas fa-key mr-2"></i>Change password</button>
+									<button type="button" class="btn btn-outline-secondary text-white mb-3" data-toggle="modal" data-target="#change-username-modal"><i class="fas fa-user-edit mr-2"></i>Change name</button>
+									<button type="button" class="btn btn-outline-secondary text-white" data-toggle="modal" data-target="#change-password-modal"><i class="fas fa-key mr-2"></i>Change password</button>
 								</div>
 								<p class="card-text"><small class="text-muted">Last updated 3 mins ago</small></p>
 							</div>
@@ -59,17 +63,15 @@
 				<div class="modal-body">
 					<form method="POST" action="view_account.php">
 						<div class="form-group">
-							<label for="new-account-name">New account name</label>
-							<input type="text" class="form-control" name="new-account-name" placeholder="Your new account name">
+							<input type="text" class="form-control form-control form-control-lg" name="new-account-name" placeholder="Your new account name">
 						</div>
 
 						<div class="form-group">
-							<label for="password">Current password</label>
-							<input type="password" class="form-control" name="current-password" placeholder="*******">
+							<input type="password" class="form-control form-control form-control-lg" name="current-password" placeholder="Current password*">
 						</div>
 
 						<div class="mt-3">
-							<button type="submit" class="btn btn-outline-warning" href="" name="change-username">Submit</button>
+							<button type="submit" class="btn btn-outline-success btn-block" href="" name="change-username">Submit</button>
 						</div>
 					</form>
 				</div>
@@ -91,22 +93,19 @@
 				<div class="modal-body">
 					<form method="POST" action="view_account.php">
 						<div class="form-group">
-							<label for="password">Current password</label>
-							<input type="password" class="form-control" name="current-password" placeholder="*******">
+							<input type="password" class="form-control form-control form-control-lg" name="current-password" placeholder="Current password">
 						</div>
 
 						<div class="form-group">
-							<label for="password">New password</label>
-							<input type="password" class="form-control" name="new-password" placeholder="*******">
+							<input type="password" class="form-control form-control form-control-lg" name="new-password" placeholder="New password">
 						</div>
 
 						<div class="form-group">
-							<label for="password">Repeat new password</label>
-							<input type="password" class="form-control" name="new-password-repeated" placeholder="*******">
+							<input type="password" class="form-control form-control form-control-lg" name="new-password-repeated" placeholder="Repeat new password">
 						</div>
 
 						<div class="mt-3">
-							<button type="submit" class="btn btn-outline-warning" href="" name="change-password">Submit</button>
+							<button type="submit" class="btn btn-outline-success btn-block" href="" name="change-password">Submit</button>
 						</div>
 					</form>
 				</div>

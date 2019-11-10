@@ -49,3 +49,6 @@ input[type='file']{
 .custom-file-label{
     background-color: #444;
 }
+.image-upload {
+    display: none;
+}

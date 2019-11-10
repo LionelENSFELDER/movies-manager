@@ -46,17 +46,19 @@
 										{# col-4 #}
 										<div class="col-md-4">
 											<img src="{{ i.poster }}" class="img-fluid rounded" alt="poster of {{ i.title }}">
-											<div>
-												<form method="POST" action="edit_movie.php" enctype="multipart/form-data">
-													<input type="hidden" name="id" class="form-control" value="{{ i.id }}">
-													<input type="hidden"  name="title" class="form-control" value="{{ i.title }}">
-													<div class="form-group mt-3">
-														<input type="file" class="form-control-file" aria-describedby="fileHelp" id="new-poster" name="new-poster" accept="image/*">
-														<small id="fileHelp" class="form-text text-muted">Please browse a .jpg or .jpeg file...</small>
+											<form class="inline-form" method="POST" action="edit_movie.php" enctype="multipart/form-data">
+												<input type="hidden" name="id" class="form-control" value="{{ i.id }}">
+												<input type="hidden"  name="title" class="form-control" value="{{ i.title }}">
+												<div class="form-group mt-3">
+													<div class="input-group">
+														<div class="custom-file">
+															<input type="file" class="custom-file-input" id="new-poster" name="new-poster" accept="image/*">
+															<label class="custom-file-label" for="new-poster">.jpg / .jpeg</label>
+														</div>
 													</div>
-													<button type="submit" class="btn btn-outline-success" name="update-poster">Update poster</button>
-												</form>
-											</div>
+												</div>
+												<button type="submit" class="btn btn-outline-success btn-block" name="update-poster">Update poster</button>
+											</form>
 										</div>
 										{# end col-4 #}
 										{# col-8 #}
@@ -64,11 +66,32 @@
 											<div class="card-body p-0">
 												<h3 class="card-title">{{ i.title }}</h3>
 												<p class="card-text">
-													<span class="badge badge-secondary"><i class="fas fa-calendar-alt mr-2"></i>{{ i.year }}</span>
-													<span class="badge badge-secondary"><i class="fas fa-tag mr-2"></i>{{ i.tag }}</span>
-													<span class="badge badge-secondary"><i class="fas fa-star mr-2"></i>{{ i.mainActor }}</span>
-													<span class="badge badge-secondary"><i class="fas fa-bullhorn mr-2"></i>{{ i.director }}</span>
+													<button class="btn btn-outline-link btn-sm text-white" disabled><i class="fas fa-calendar-alt mr-2"></i>{{ i.year }}</button>
+													<button class="btn btn-outline-link btn-sm text-white" disabled><i class="fas fa-tags mr-2"></i>{{ i.tag }}</button>
+													<button class="btn btn-outline-link btn-sm text-white" disabled><i class="fas fa-star mr-2"></i>{{ i.mainActor }}</button>
+													<button class="btn btn-outline-link btn-sm text-white" disabled><i class="fas fa-bullhorn mr-2"></i>{{ i.director }}</button>
 												</p>
+												{# <div>
+													<form class="inline-form" method="POST" action="edit_movie.php" enctype="multipart/form-data">
+														<input type="hidden" name="id" class="form-control" value="{{ i.id }}">
+														<input type="hidden"  name="title" class="form-control" value="{{ i.title }}">
+
+														<div class="row">
+															<div class="col">
+																<div class="input-group">
+																	<div class="custom-file">
+																		<input type="file" class="custom-file-input" id="new-poster" name="new-poster" accept="image/*">
+																		<label class="custom-file-label" for="new-poster">.jpg / .jpeg</label>
+																	</div>
+																</div>
+															</div>
+															<div class="col">
+																<button type="submit" class="btn btn-outline-success" name="update-poster">Update poster</button>
+															</div>
+														</div>
+
+													</form>
+												</div> #}
 												<div class="d-inline-block mb-3">
 													
 													<form method="POST" action="edit_movie.php" enctype="multipart/form-data">
@@ -79,12 +102,12 @@
 														<input type="hidden"  name="director" class="form-control" value="{{ i.director }}">
 														<input type="hidden"  name="tag" class="form-control" value="{{ i.tag }}">
 														<input type="hidden"  name="content" class="form-control" value="{{ i.content }}">
-														<button class="btn btn-link text-success" disabled><i class="far fa-heart mr-2"></i>Add to bookmarks</button>
-														<button type="submit" class="btn btn-link text-info" name="edit"><i class="far fa-edit mr-2"></i>Edit infos</button>
-														<button type="submit" class="btn btn-link text-danger" name="delete"><i class="far fa-trash-alt mr-2"></i>Delete</button>
+														<button type="submit" class="btn btn-outline-secondary text-white" name="edit"><i class="far fa-edit mr-2"></i>Edit infos</button>
+														<button type="submit" class="btn btn-outline-secondary text-white" name="delete"><i class="far fa-trash-alt mr-2"></i>Delete</button>
 													</form>
 
 												</div>
+
 												<p class="card-text">
 													{{ i.content }}
 												</p>
