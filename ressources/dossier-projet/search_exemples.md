@@ -1,1 +1,0 @@
-https://stackoverflow.com/questions/8028957/how-to-fix-headers-already-sent-error-in-php
