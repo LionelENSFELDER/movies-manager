@@ -38,6 +38,7 @@ a{
 }
 .form-control{
     background-color: #444;
+    color: #ffffff;
 }
 .form-control:focus{
     background-color: #444;
