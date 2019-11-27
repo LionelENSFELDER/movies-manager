@@ -1,21 +1,21 @@
 <?php
 
-abstract class BaseController {
+    abstract class BaseController {
 
-    protected $app;
+        protected $app;
 
-    public function __construct(){
-        $this->app = App::Get();
+        public function __construct(){
+            $this->app = App::Get();
+        }
+
+        protected function render(string $path, array $data = []): string {
+            $twig = $this->app->getTwig();
+            $template = $twig->load($path);
+
+            return $template->render($data);
+        }
+
+        protected function getAuth(){
+            return $this->app->getAuth();
+        }
     }
-
-    protected function render(string $path, array $data = []): string {
-        $twig = $this->app->getTwig();
-        $template = $twig->load($path);
-
-        return $template->render($data);
-    }
-
-    protected function getAuth(){
-        return $this->app->getAuth();
-    }
-}

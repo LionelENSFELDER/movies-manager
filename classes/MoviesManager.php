@@ -31,7 +31,7 @@
                 $query = 'SELECT * FROM `movies`';
                 $this->moviesList = $this->db->query($query);
             }catch(PDOException $e){
-                echo 'BDD plugin fail : ' . $e->getMessage();
+                echo 'BDD plugin fail: ' . $e->getMessage();
             }
         }
         //call allMovies to show movies and return moviesList

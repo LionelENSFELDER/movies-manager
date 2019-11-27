@@ -1,5 +1,4 @@
 <?php
-    
 
     //globale app class used everywhere
 
@@ -65,7 +64,7 @@
 
             $loader = new \Twig\Loader\FilesystemLoader('./templates');
             $this->twig = new \Twig\Environment($loader, [
-                'cache' => false //disable cache - - for enable carche: 'cache' => './cache/twig'
+                'cache' => false //disable cache -> for enable carche: 'cache' => './cache/twig'
             ]);
         }
 
