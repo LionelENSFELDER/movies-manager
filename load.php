@@ -12,6 +12,7 @@
     });
     
     $app = App::Get();
+    
     $db = $app->getDb();
     $user = $app->getUser();
     $user->cookie_login();

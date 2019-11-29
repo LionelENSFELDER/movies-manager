@@ -35,6 +35,11 @@
             }
         }
         //call allMovies to show movies and return moviesList
+        /**
+         * Undocumented function
+         *
+         * @return void
+         */
         public function getAllMovies(){
             $this->allMovies();
             return $this->moviesList;
@@ -65,6 +70,11 @@
         }
 
         //call add_movie();
+        /**
+         * Undocumented function
+         *
+         * @return void
+         */
         public function set_movie(){
 
             $title=filter_var($_POST['title'], FILTER_SANITIZE_STRING);
@@ -79,26 +89,29 @@
         }
 
         //set movie in database
+        /**
+         * Undocumented function
+         *
+         * @return void
+         */
         public function add_movie(){
 
-            $title=filter_var($_POST['title'], FILTER_SANITIZE_STRING);
-            $content=filter_var($_POST['content'], FILTER_SANITIZE_STRING);
-            $mainActor=filter_var($_POST['mainActor'], FILTER_SANITIZE_STRING);
-            $director=filter_var($_POST['director'], FILTER_SANITIZE_STRING);
-            $tag=filter_var($_POST['tag'], FILTER_SANITIZE_STRING);
-            $year=filter_var($_POST['year'], FILTER_SANITIZE_NUMBER_INT);
-            //$uploaded_file = $_POST['poster'];
+            function prepareData(){
 
-            //check if $title already exist
-            global $db;
-            $query = $db->prepare('SELECT COUNT(*) FROM movies WHERE title = ?');
-            $query->execute(array($title));
-            $check = $query->fetchColumn();
+                $data = array();
 
-            if($check > 0){
-                header('location:double-title-found.php');
-            }else{
+                $title=filter_var($_POST['title'], FILTER_SANITIZE_STRING);
+                $content=filter_var($_POST['content'], FILTER_SANITIZE_STRING);
+                $mainActor=filter_var($_POST['mainActor'], FILTER_SANITIZE_STRING);
+                $director=filter_var($_POST['director'], FILTER_SANITIZE_STRING);
+                $tag=filter_var($_POST['tag'], FILTER_SANITIZE_STRING);
+                $year=filter_var($_POST['year'], FILTER_SANITIZE_NUMBER_INT);
+
                 $default_poster = 'assets/posters/default.jpg';
+
+                //$poster = $default_poster;
+
+
                 //upload tests
                 if (isset($_FILES['poster']) 
                 AND $_FILES['poster']['error'] == 0 
@@ -129,16 +142,51 @@
                 }
                 //end upload
 
-                try{
-                    //remplace global $db ?
-                    global $db;
-                    $query = $db->prepare('INSERT INTO movies (title, content, mainActor, director, tag, year, poster) VALUES (?, ?, ?, ?, ?, ?, ?)');
-                    $query->execute(array($title, $content, $mainActor, $director, $tag, $year, $poster));
-                    return TRUE;
-                }catch(PDOException $e){
-                    echo 'Err: '.$e->getMessage();
+                array_push($data, $title, $content, $mainActor, $director, $tag, $year, $poster); //a voir pour changer methode de push arr
+
+                return $data;
+            }
+
+            function dbRequest(){
+                
+                $dataFull = prepareData();
+
+                // for($i = 0; $i <= count($dataFull); $i++){
+                    
+                // }
+
+                $title=$dataFull[0];
+                $content=$dataFull[1];
+                $mainActor=$dataFull[2];
+                $director=$dataFull[3];
+                $tag=$dataFull[4];
+                $year=$dataFull[5];
+                $poster=$dataFull[6];
+
+                //check if $title already exist
+                global $db;
+                $query = $db->prepare('SELECT COUNT(*) FROM movies WHERE title = ?');
+                $query->execute(array($title));
+                $check = $query->fetchColumn();
+    
+                if($check > 0){
+                    header('location:double-title-found.php');
+                }else{
+                    
+    
+                    try{
+                        //remplace global $db ?
+                        global $db;
+                        $query = $db->prepare('INSERT INTO movies (title, content, mainActor, director, tag, year, poster) VALUES (?, ?, ?, ?, ?, ?, ?)');
+                        $query->execute(array($title, $content, $mainActor, $director, $tag, $year, $poster));
+                        return TRUE;
+                    }catch(PDOException $e){
+                        echo 'Err: '.$e->getMessage();
+                    }
                 }
             }
+
+            $go = dbRequest();
 
         }
 
