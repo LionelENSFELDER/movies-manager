@@ -1,0 +1,20 @@
+# Présentation orale
+Durée: 40 min
+Présentation de l'app via ppt: 30 min
+
+
+- Présentation de l’entreprise et/ou du service et contexte du projet (cahier des charges, environnement humain et technique)
+1. Contexte.
+- Geek
+
+- Conception et codage des composants front-end et des composants back-end
+
+- Présentation des éléments les plus significatifs de l’interface de l’application
+
+- Présentation du jeu d’essai de la fonctionnalité la plus représentative (données en entrée, données attendues, données obtenues) et analyse des écarts éventuels
+
+- Présentation d’un exemple de recherche effectuée à partir de site anglophone
+
+- Synthèse et conclusion (satisfactions et difficultés rencontrées)
+
+- Démonstration de l'interface et des fonctionnalités de l'application: 10 min
