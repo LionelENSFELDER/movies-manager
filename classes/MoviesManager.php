@@ -186,7 +186,12 @@
                 }
             }
 
-            $go = dbRequest();
+            $isSetInDb = dbRequest();
+            if ($isSetInDb === TRUE){
+                return TRUE;
+            }else{
+                return FALSE;
+            }
 
         }
 
